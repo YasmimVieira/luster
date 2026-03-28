@@ -2,7 +2,16 @@
   "name": "@luster/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "storybook": "nx run ui:storybook",
+    "build-storybook": "nx run ui:build-storybook",
+    "build:ui": "nx build ui",
+    "test": "nx run-many -t test --all",
+    "graph": "nx graph",
+    "affected:build": "nx affected -t build",
+    "lint": "nx run-many -t lint --all",
+    "format": "nx format:write"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~21.2.0",
@@ -28,9 +37,13 @@
     "@nx/eslint-plugin": "22.6.3",
     "@nx/jest": "22.6.3",
     "@nx/js": "22.6.3",
+    "@nx/storybook": "^22.6.3",
     "@nx/web": "22.6.3",
     "@nx/workspace": "22.6.3",
     "@schematics/angular": "~21.2.0",
+    "@storybook/addon-a11y": "^10.3.3",
+    "@storybook/addon-themes": "^10.3.3",
+    "@storybook/angular": "10.3.3",
     "@swc-node/register": "~1.11.1",
     "@swc/core": "~1.15.5",
     "@swc/helpers": "~0.5.18",
@@ -38,6 +51,7 @@
     "@types/node": "20.19.9",
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^21.2.0",
+    "autoprefixer": "^10.4.0",
     "cypress": "^15.8.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
@@ -46,12 +60,20 @@
     "jest-environment-jsdom": "^30.0.2",
     "jest-preset-angular": "~16.0.0",
     "jest-util": "^30.0.2",
+    "jsonc-eslint-parser": "^2.1.0",
+    "ng-packagr": "~21.2.0",
     "nx": "22.6.3",
+    "postcss": "^8.4.5",
     "prettier": "~3.6.2",
+    "storybook": "10.3.3",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "typescript-eslint": "^8.40.0",
+    "verdaccio": "^6.0.5"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }
