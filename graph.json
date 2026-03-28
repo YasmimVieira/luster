@@ -1,0 +1,601 @@
+{
+  "graph": {
+    "nodes": {
+      "luster-e2e": {
+        "name": "luster-e2e",
+        "type": "e2e",
+        "data": {
+          "root": "apps/luster-e2e",
+          "projectType": "application",
+          "metadata": {
+            "targetGroups": {
+              "E2E (CI)": [
+                "e2e-ci--src/e2e/app.cy.ts",
+                "e2e-ci"
+              ]
+            }
+          },
+          "targets": {
+            "e2e": {
+              "options": {
+                "cwd": "apps/luster-e2e",
+                "env": {
+                  "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+                },
+                "command": "cypress run"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "cypress"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/luster-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/luster-e2e/screenshots"
+              ],
+              "metadata": {
+                "technologies": [
+                  "cypress"
+                ],
+                "description": "Runs Cypress Tests",
+                "help": {
+                  "command": "npx cypress run --help",
+                  "example": {
+                    "args": [
+                      "--dev",
+                      "--headed"
+                    ]
+                  }
+                }
+              },
+              "dependsOn": [
+                {
+                  "projects": [
+                    "luster"
+                  ],
+                  "target": "serve"
+                }
+              ],
+              "configurations": {
+                "production": {
+                  "command": "cypress run --env webServerCommand=\"npx nx run luster:serve-static\""
+                }
+              },
+              "executor": "nx:run-commands",
+              "parallelism": true
+            },
+            "e2e-ci--src/e2e/app.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}\\dist\\cypress\\apps\\luster-e2e\\videos\\src-e2e-app-cy-ts",
+                "{workspaceRoot}\\dist\\cypress\\apps\\luster-e2e\\screenshots\\src-e2e-app-cy-ts"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "cypress"
+                  ]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/luster-e2e",
+                "env": {
+                  "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+                },
+                "command": "cypress run --env webServerCommand=\"npx nx run luster:serve-static\" --spec src/e2e/app.cy.ts --config=\"{\\\"baseUrl\\\":\\\"http://localhost:4200\\\",\\\"e2e\\\":{\\\"videosFolder\\\":\\\"..\\\\\\\\..\\\\\\\\dist\\\\\\\\cypress\\\\\\\\apps\\\\\\\\luster-e2e\\\\\\\\videos\\\\\\\\src-e2e-app-cy-ts\\\",\\\"screenshotsFolder\\\":\\\"..\\\\\\\\..\\\\\\\\dist\\\\\\\\cypress\\\\\\\\apps\\\\\\\\luster-e2e\\\\\\\\screenshots\\\\\\\\src-e2e-app-cy-ts\\\"}}\""
+              },
+              "metadata": {
+                "technologies": [
+                  "cypress"
+                ],
+                "description": "Runs Cypress Tests in src/e2e/app.cy.ts in CI",
+                "help": {
+                  "command": "npx cypress run --help",
+                  "example": {
+                    "args": [
+                      "--dev",
+                      "--headed"
+                    ]
+                  }
+                }
+              },
+              "dependsOn": [
+                {
+                  "target": "serve-static",
+                  "projects": [
+                    "luster"
+                  ]
+                }
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "e2e-ci": {
+              "executor": "nx:noop",
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "cypress"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/luster-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/luster-e2e/screenshots"
+              ],
+              "dependsOn": [
+                {
+                  "target": "e2e-ci--src/e2e/app.cy.ts",
+                  "projects": "self",
+                  "params": "forward",
+                  "options": "forward"
+                }
+              ],
+              "metadata": {
+                "technologies": [
+                  "cypress"
+                ],
+                "description": "Runs Cypress Tests in CI",
+                "nonAtomizedTarget": "e2e",
+                "help": {
+                  "command": "npx cypress run --help",
+                  "example": {
+                    "args": [
+                      "--dev",
+                      "--headed"
+                    ]
+                  }
+                }
+              },
+              "configurations": {},
+              "options": {},
+              "parallelism": true
+            },
+            "open-cypress": {
+              "options": {
+                "cwd": "apps/luster-e2e",
+                "env": {
+                  "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+                },
+                "command": "cypress open"
+              },
+              "metadata": {
+                "technologies": [
+                  "cypress"
+                ],
+                "description": "Opens Cypress",
+                "help": {
+                  "command": "npx cypress open --help",
+                  "example": {
+                    "args": [
+                      "--dev",
+                      "--e2e"
+                    ]
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/luster-e2e",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/apps/luster-e2e/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "luster-e2e",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/luster-e2e/src",
+          "tags": [],
+          "implicitDependencies": [
+            "luster"
+          ]
+        }
+      },
+      "luster": {
+        "name": "luster",
+        "type": "app",
+        "data": {
+          "root": "apps/luster",
+          "targets": {
+            "lint": {
+              "executor": "@nx/eslint:lint",
+              "options": {},
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore",
+                "{workspaceRoot}/eslint.config.mjs"
+              ]
+            },
+            "build": {
+              "executor": "@angular-devkit/build-angular:browser",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/apps/luster",
+                "index": "apps/luster/src/index.html",
+                "main": "apps/luster/src/main.ts",
+                "tsConfig": "apps/luster/tsconfig.app.json",
+                "inlineStyleLanguage": "scss",
+                "assets": [
+                  {
+                    "glob": "**/*",
+                    "input": "apps/luster/public"
+                  }
+                ],
+                "styles": [
+                  "apps/luster/src/styles.scss"
+                ]
+              },
+              "configurations": {
+                "production": {
+                  "budgets": [
+                    {
+                      "type": "initial",
+                      "maximumWarning": "500kb",
+                      "maximumError": "1mb"
+                    },
+                    {
+                      "type": "anyComponentStyle",
+                      "maximumWarning": "4kb",
+                      "maximumError": "8kb"
+                    }
+                  ],
+                  "outputHashing": "all"
+                },
+                "development": {
+                  "buildOptimizer": false,
+                  "optimization": false,
+                  "vendorChunk": true,
+                  "extractLicenses": false,
+                  "sourceMap": true,
+                  "namedChunks": true
+                }
+              },
+              "defaultConfiguration": "production",
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "serve": {
+              "continuous": true,
+              "executor": "@angular-devkit/build-angular:dev-server",
+              "configurations": {
+                "production": {
+                  "buildTarget": "luster:build:production"
+                },
+                "development": {
+                  "buildTarget": "luster:build:development"
+                }
+              },
+              "defaultConfiguration": "development",
+              "options": {},
+              "parallelism": true
+            },
+            "extract-i18n": {
+              "executor": "@angular-devkit/build-angular:extract-i18n",
+              "options": {
+                "buildTarget": "luster:build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/jest:jest",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "jestConfig": "apps/luster/jest.config.cts",
+                "tsConfig": "apps/luster/tsconfig.spec.json",
+                "passWithNoTests": true
+              },
+              "configurations": {
+                "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+                }
+              },
+              "parallelism": true,
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js"
+              ]
+            },
+            "serve-static": {
+              "continuous": true,
+              "executor": "@nx/web:file-server",
+              "options": {
+                "buildTarget": "luster:build",
+                "port": 4200,
+                "spa": true
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "luster",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "projectType": "application",
+          "prefix": "app",
+          "sourceRoot": "apps/luster/src",
+          "tags": [],
+          "implicitDependencies": []
+        }
+      },
+      "ui": {
+        "name": "ui",
+        "type": "lib",
+        "data": {
+          "root": "libs/ui",
+          "targets": {
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "libs/ui",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/libs/ui/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-storybook": {
+              "executor": "@storybook/angular:build-storybook",
+              "outputs": [
+                "{options.outputDir}"
+              ],
+              "options": {
+                "outputDir": "dist/storybook/ui",
+                "configDir": "libs/ui/.storybook",
+                "compodoc": false
+              },
+              "configurations": {
+                "ci": {
+                  "quiet": true
+                }
+              },
+              "parallelism": true,
+              "cache": true
+            },
+            "storybook": {
+              "executor": "@storybook/angular:start-storybook",
+              "options": {
+                "port": 4400,
+                "configDir": "libs/ui/.storybook",
+                "compodoc": false
+              },
+              "configurations": {
+                "ci": {
+                  "quiet": true
+                }
+              },
+              "parallelism": true
+            },
+            "static-storybook": {
+              "dependsOn": [
+                "build-storybook"
+              ],
+              "continuous": true,
+              "executor": "@nx/web:file-server",
+              "options": {
+                "buildTarget": "ui:build-storybook",
+                "staticFilePath": "dist/storybook/ui",
+                "spa": true
+              },
+              "configurations": {
+                "ci": {
+                  "buildTarget": "ui:build-storybook:ci"
+                }
+              },
+              "parallelism": true
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "npx nx watch --projects ui --includeDependentProjects -- npx nx build-deps ui"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "@nx/angular:package",
+              "options": {
+                "project": "libs/ui/ng-package.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "test-storybook": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "test-storybook -c libs/ui/.storybook --url=http://localhost:4400"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "ui",
+          "tags": [
+            "npm:public"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "@luster/ui",
+              "packageVersion": "0.0.1",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "sourceRoot": "libs/ui/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "@luster/source": {
+        "name": "@luster/source",
+        "type": "app",
+        "data": {
+          "root": ".",
+          "name": "@luster/source",
+          "includedScripts": [],
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "@luster/source",
+              "packageVersion": "0.0.0",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "local-registry": {
+              "executor": "@nx/js:verdaccio",
+              "options": {
+                "port": 4873,
+                "config": ".verdaccio/config.yml",
+                "storage": "tmp/local-registry/storage"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "continuous": true
+            }
+          },
+          "$schema": "node_modules/nx/schemas/project-schema.json",
+          "implicitDependencies": []
+        }
+      }
+    },
+    "dependencies": {
+      "luster-e2e": [
+        {
+          "source": "luster-e2e",
+          "target": "luster",
+          "type": "implicit"
+        }
+      ],
+      "luster": [],
+      "ui": [],
+      "@luster/source": []
+    }
+  }
+}
