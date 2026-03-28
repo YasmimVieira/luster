@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-cards',
   imports: [],
   templateUrl: './cards.html',
-  styleUrl: './cards.css',
+  styleUrl: './cards.scss',
 })
 export class Cards {}

@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-badges',
   imports: [],
   templateUrl: './badges.html',
-  styleUrl: './badges.css',
+  styleUrl: './badges.scss',
 })
 export class Badges {}

@@ -1,0 +1,16 @@
+@import '../styles/typography/tokens';
+@import '../styles/typography/mixins';
+
+.luster-typo {
+  &--display-lg  { @include luster-typography('display-lg'); }
+  &--headline-lg { @include luster-typography('headline-lg'); }
+  &--headline-sm { @include luster-typography('headline-sm'); }
+  &--body-lg     { @include luster-typography('body-lg'); }
+  &--label-sm    { @include luster-typography('label-sm'); }
+}
+
+@each $name, $value in $luster-colors {
+  .luster-color--#{$name} {
+    color: $value;
+  }
+}

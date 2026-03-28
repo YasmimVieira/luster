@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-inputs',
   imports: [],
   templateUrl: './inputs.html',
-  styleUrl: './inputs.css',
+  styleUrl: './inputs.scss',
 })
 export class Inputs {}

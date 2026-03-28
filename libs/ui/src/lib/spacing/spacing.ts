@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-spacing',
   imports: [],
   templateUrl: './spacing.html',
-  styleUrl: './spacing.css',
+  styleUrl: './spacing.scss',
 })
 export class Spacing {}

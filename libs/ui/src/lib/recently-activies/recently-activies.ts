@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-recently-activies',
   imports: [],
   templateUrl: './recently-activies.html',
-  styleUrl: './recently-activies.css',
+  styleUrl: './recently-activies.scss',
 })
 export class RecentlyActivies {}

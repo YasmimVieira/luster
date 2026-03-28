@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-icons',
   imports: [],
   templateUrl: './icons.html',
-  styleUrl: './icons.css',
+  styleUrl: './icons.scss',
 })
 export class Icons {}

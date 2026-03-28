@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-colors',
   imports: [],
   templateUrl: './colors.html',
-  styleUrl: './colors.css',
+  styleUrl: './colors.scss',
 })
 export class Colors {}

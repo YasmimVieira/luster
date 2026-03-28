@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-buttons',
   imports: [],
   templateUrl: './buttons.html',
-  styleUrl: './buttons.css',
+  styleUrl: './buttons.scss',
 })
 export class Buttons {}

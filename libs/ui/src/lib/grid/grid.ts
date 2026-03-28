@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-grid',
   imports: [],
   templateUrl: './grid.html',
-  styleUrl: './grid.css',
+  styleUrl: './grid.scss',
 })
 export class Grid {}

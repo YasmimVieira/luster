@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-toast',
   imports: [],
   templateUrl: './toast.html',
-  styleUrl: './toast.css',
+  styleUrl: './toast.scss',
 })
 export class Toast {}

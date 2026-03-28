@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-tabs',
   imports: [],
   templateUrl: './tabs.html',
-  styleUrl: './tabs.css',
+  styleUrl: './tabs.scss',
 })
 export class Tabs {}

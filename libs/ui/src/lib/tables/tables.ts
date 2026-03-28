@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-tables',
   imports: [],
   templateUrl: './tables.html',
-  styleUrl: './tables.css',
+  styleUrl: './tables.scss',
 })
 export class Tables {}

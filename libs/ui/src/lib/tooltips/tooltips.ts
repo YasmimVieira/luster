@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-tooltips',
   imports: [],
   templateUrl: './tooltips.html',
-  styleUrl: './tooltips.css',
+  styleUrl: './tooltips.scss',
 })
 export class Tooltips {}

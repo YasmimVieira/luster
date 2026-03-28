@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-graphics',
   imports: [],
   templateUrl: './graphics.html',
-  styleUrl: './graphics.css',
+  styleUrl: './graphics.scss',
 })
 export class Graphics {}
