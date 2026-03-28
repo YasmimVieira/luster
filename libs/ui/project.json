@@ -1,48 +1,31 @@
 {
   "name": "ui",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "root": "libs/ui",
   "sourceRoot": "libs/ui/src",
-  "prefix": "lib",
   "projectType": "library",
-  "release": {
-    "version": {
-      "manifestRootsToUpdate": ["dist/{projectRoot}"],
-      "currentVersionResolver": "git-tag",
-      "fallbackCurrentVersionResolver": "disk"
-    }
-  },
-  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/ui/ng-package.json",
-        "tsConfig": "libs/ui/tsconfig.lib.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ui/tsconfig.lib.prod.json"
-        },
-        "development": {}
-      },
-      "defaultConfiguration": "production"
-    },
-    "nx-release-publish": {
-      "options": {
-        "packageRoot": "dist/{projectRoot}"
+        "project": "libs/ui/ng-package.json"
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
       "options": {
-        "jestConfig": "libs/ui/jest.config.cts",
-        "tsConfig": "libs/ui/tsconfig.spec.json"
+        "configDir": "libs/ui/.storybook",
+        "buildTarget": "ui:build",
+        "compodoc": false,
+        "port": 6006
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "configDir": "libs/ui/.storybook",
+        "buildTarget": "ui:build",
+        "outputDir": "dist/storybook/ui"
+      }
     }
   }
 }
