@@ -4,8 +4,16 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 
 export type TypographyVariant = 'display-lg' | 'headline-lg' | 'headline-sm' | 'body-lg' | 'label-sm';
-export type LusterColor = 'obsidian' | 'white' | 'neon-blue' | 'neon-purple' | 'gold' | 'default';
-
+// Substitua o tipo antigo por este:
+export type LusterColor = 
+  | 'primary' 
+  | 'primary-container' 
+  | 'surface-high' 
+  | 'surface-low' 
+  | 'error' 
+  | 'discovery' 
+  | 'default';
+  
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'luster-typography',
@@ -15,7 +23,7 @@ export type LusterColor = 'obsidian' | 'white' | 'neon-blue' | 'neon-purple' | '
 })
 export class Typography {
   variant = input<TypographyVariant>('body-lg');
-  color = input<LusterColor>('default'); // Default herda a cor do pai
+  color = input<LusterColor>('default'); 
   customClass = input<string>('');
 
   classes = computed(() => {

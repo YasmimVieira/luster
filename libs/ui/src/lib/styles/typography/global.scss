@@ -1,14 +1,32 @@
 
 
+
+
+$luster-colors: (
+  "primary": #3525CD,
+  "primary-container": #4F46E5,
+  "surface-high": #D3E4FE,
+  "surface-low": #EFF4FF,
+  "error": #BA1A1A,
+  "discovery": #7E3000
+);
+
+// :root {
+//   @each $name, $value in $luster-colors {
+//     --color-#{$name}: #{$value};
+//   }
+// }
+
+// @each $name, $value in $luster-colors {
+//   .luster-color--#{$name} {
+//     color: var(--color-#{$name}) !important; 
+//   }
+// }
+
 $font-display: 'Manrope', sans-serif;
 $font-body: 'Inter', sans-serif;
-$luster-colors: (
-  "obsidian": #050505,
-  "white": #ffffff,
-  "neon-blue": #0070f3,
-  "neon-purple": #7928ca,
-  "gold": #f5a623
-);
+
+
 
 $luster-typography-scale: (
   'display-lg': (
@@ -62,6 +80,7 @@ $luster-typography-scale: (
     text-transform: map-get($style, 'text-transform');
   }
 }
+
 
 @mixin luster-color($name) {
   color: map-get($luster-colors, $name);
