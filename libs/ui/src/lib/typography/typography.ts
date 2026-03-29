@@ -7,7 +7,8 @@ export type TypographyVariant = 'display-lg' | 'headline-lg' | 'headline-sm' | '
 export type LusterColor = 'obsidian' | 'white' | 'neon-blue' | 'neon-purple' | 'gold' | 'default';
 
 @Component({
-  selector: 'lib-typography',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'luster-typography',
   imports: [CommonModule],
   templateUrl: './typography.html',
   styleUrl: './typography.scss',
