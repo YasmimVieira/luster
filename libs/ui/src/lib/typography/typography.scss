@@ -1,5 +1,4 @@
-@import '../styles/typography/tokens';
-@import '../styles/typography/mixins';
+@import '../styles/typography/global.scss';
 
 .luster-typo {
   &--display-lg  { @include luster-typography('display-lg'); }

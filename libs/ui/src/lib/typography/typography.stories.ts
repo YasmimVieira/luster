@@ -42,7 +42,7 @@ export const Interactive: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <luster-typography [variant]="variant" [color]="color" [customClass]="customClass">
+ <luster-typography [variant]="variant" [color]="color">
         Luster Design System
       </luster-typography>
     `,

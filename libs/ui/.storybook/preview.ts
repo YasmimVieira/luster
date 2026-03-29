@@ -1,7 +1,17 @@
 import { Preview } from '@storybook/angular';
-import '../src/lib/styles/typography/global.scss';
+
+// Importe o arquivo SEM o underline (garanta que o arquivo foi renomeado no VS Code)
+import '../src/lib/styles/typography/global.scss'; 
 
 const preview: Preview = {
-  // ... resto da config
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
 };
+
 export default preview;
