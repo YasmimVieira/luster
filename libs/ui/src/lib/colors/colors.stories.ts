@@ -1,16 +1,21 @@
-import { Meta, StoryObj } from '@storybook/angular';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
 
 const meta: Meta = {
   title: 'Design System/Color Atmosphere',
+  decorators: [
+    moduleMetadata({
+      imports: [CommonModule],
+    }),
+  ],
   parameters: {
-    layout: 'centered', // Centraliza a visualização no canvas do Storybook
+    layout: 'centered',
   },
 };
 
 export default meta;
 type Story = StoryObj;
 
-// Array com os dados das cores para iterarmos no template
 const colorData = [
   { group: 'Brand Primary', name: 'primary', hex: '#3525CD', var: '$color-primary', textColor: '#fff' },
   { group: 'Brand Primary', name: 'primary-container', hex: '#4F46E5', var: '$color-primary-container', textColor: '#fff' },
@@ -35,7 +40,7 @@ export const Showcase: Story = {
             <span style="font-size: 0.75rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px;">Brand Primary</span>
             <ng-container *ngFor="let c of colors">
               <div *ngIf="c.group === 'Brand Primary'" 
-                   [style.background-color]="'var(' + c.var + ')'" 
+                   [style.background-color]="c.hex" 
                    [style.color]="c.textColor"
                    style="padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: flex-end; min-height: 120px;">
                 <span style="font-size: 0.75rem; opacity: 0.8; font-family: monospace;">{{ c.var }}</span>
@@ -48,7 +53,7 @@ export const Showcase: Story = {
             <span style="font-size: 0.75rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px;">Tonal Neutrals</span>
             <ng-container *ngFor="let c of colors">
               <div *ngIf="c.group === 'Tonal Neutrals'" 
-                   [style.background-color]="'var(' + c.var + ')'" 
+                   [style.background-color]="c.hex" 
                    [style.color]="c.textColor"
                    style="padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: flex-end; min-height: 120px;">
                 <span style="font-size: 0.75rem; opacity: 0.6; font-family: monospace;">{{ c.var }}</span>
@@ -61,7 +66,7 @@ export const Showcase: Story = {
             <span style="font-size: 0.75rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px;">Semantic Meanings</span>
             <ng-container *ngFor="let c of colors">
               <div *ngIf="c.group === 'Semantic Meanings'" 
-                   [style.background-color]="'var(' + c.var + ')'" 
+                   [style.background-color]="c.hex" 
                    [style.color]="c.textColor"
                    style="padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: flex-end; min-height: 120px;">
                 <span style="font-size: 0.75rem; opacity: 0.8; font-family: monospace;">{{ c.var }}</span>
