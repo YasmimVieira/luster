@@ -42,9 +42,9 @@ export const Interactive: Story = {
   render: (args) => ({
     props: args,
     template: `
- <luster-typography [variant]="variant" [color]="color">
+ <lib-typography [variant]="variant" [color]="color">
         Luster Design System
-      </luster-typography>
+      </lib-typography>
     `,
   }),
 };
@@ -54,15 +54,15 @@ export const FullScale: Story = {
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 2rem; padding: 2rem; background: #050505; min-height: 100vh;">
-        <luster-typography variant="display-lg" color="white">Display Large (Manrope)</luster-typography>
-        <luster-typography variant="headline-lg" color="neon-blue">Headline Large Neon</luster-typography>
-        <luster-typography variant="headline-sm" color="neon-purple">Headline Small Purple</luster-typography>
-        <luster-typography variant="body-lg" color="white">
+        <lib-typography variant="display-lg" color="white">Display Large (Manrope)</lib-typography>
+        <lib-typography variant="headline-lg" color="neon-blue">Headline Large Neon</lib-typography>
+        <lib-typography variant="headline-sm" color="neon-purple">Headline Small Purple</lib-typography>
+        <lib-typography variant="body-lg" color="white">
           Corpo de texto usando a fonte Inter para máxima legibilidade em interfaces complexas.
-        </luster-typography>
-        <luster-typography variant="label-sm" color="gold">
+        </lib-typography>
+        <lib-typography variant="label-sm" color="gold">
           Label de sistema (Uppercase)
-        </luster-typography>
+        </lib-typography>
       </div>
     `,
   }),
