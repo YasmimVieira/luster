@@ -80,6 +80,8 @@ nx generate @nx/angular:component \
   --directory=libs/ui/src/lib/modal \
   --standalone
 
+  nx generate @nx/angular:component \ --name=navbar \ --project=ui \ --directory=libs/ui/src/lib/navbar \ --standalone
+
 # Ele será gerado com:
 # modal.component.ts  ← lógica e template
 # modal.component.scss ← estilos scoped
