@@ -45,6 +45,10 @@
   ],
   "devDependencies": {
     "@stencil/core": "^4.22.0",
+    "@storybook/addon-a11y": "^8.6.18",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/web-components-vite": "^8.6.18",
+    "lit": "^3.3.2",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
