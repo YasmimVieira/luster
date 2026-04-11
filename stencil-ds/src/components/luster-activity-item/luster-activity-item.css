@@ -1,0 +1,102 @@
+:host { display: block; }
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dc-space-3);
+  padding: var(--dc-space-3) 0;
+}
+
+.activity-item + .activity-item { border-top: 1px solid rgba(64, 72, 93, 0.12); }
+
+.activity-item__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--dc-round-full);
+  background: rgba(163, 166, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dc-primary);
+  flex-shrink: 0;
+}
+
+.activity-item__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.activity-item__title {
+  font-size: var(--dc-body-sm);
+  font-weight: 600;
+  color: var(--dc-on-surface);
+  line-height: 1.3;
+}
+
+.activity-item__desc {
+  font-size: var(--dc-label-md);
+  color: var(--dc-on-surface-variant);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.activity-item__time {
+  font-size: var(--dc-label-sm);
+  color: var(--dc-on-surface-variant);
+  margin-top: var(--dc-space-1);
+}
+
+/* File variant */
+.activity-item--file {
+  align-items: center;
+  background: var(--dc-surface-container);
+  border-radius: var(--dc-round-3);
+  padding: var(--dc-space-3) var(--dc-space-4);
+  transition: background var(--dc-transition-fast);
+}
+
+.activity-item--file + .activity-item--file { border-top: none; margin-top: var(--dc-space-2); }
+
+.activity-item--file:hover { background: var(--dc-surface-container-high); }
+
+.activity-item__file-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--dc-round-2);
+  background: rgba(163, 166, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dc-primary);
+  flex-shrink: 0;
+}
+
+.activity-item__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--dc-space-1);
+  font-size: var(--dc-label-sm);
+  color: var(--dc-on-surface-variant);
+}
+
+.activity-item__download {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dc-on-surface-variant);
+  display: flex;
+  align-items: center;
+  padding: var(--dc-space-1);
+  border-radius: var(--dc-round-1);
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity var(--dc-transition-fast);
+}
+
+.activity-item__download:hover { opacity: 1; }

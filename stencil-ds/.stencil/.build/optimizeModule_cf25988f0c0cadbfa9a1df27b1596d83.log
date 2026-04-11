@@ -1,0 +1,1 @@
+import{D as o,d as s}from"./dc-toggle2.js";const t=o,r=s;export{t as DcToggle,r as defineCustomElement}

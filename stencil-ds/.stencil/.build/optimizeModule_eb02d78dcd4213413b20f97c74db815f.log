@@ -1,0 +1,1 @@
+import{D as o,d as t}from"./dc-button2.js";const s=o,r=t;export{s as DcButton,r as defineCustomElement}

@@ -1,0 +1,1 @@
+import{D as o,d as s}from"./dc-badge2.js";const a=o,d=s;export{a as DcBadge,d as defineCustomElement}

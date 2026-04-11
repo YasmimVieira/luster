@@ -1,0 +1,33 @@
+:host { display: inline-flex; }
+
+.swatch { display: flex; flex-direction: column; gap: var(--dc-space-2); }
+
+.swatch__color {
+  border-radius: var(--dc-round-3);
+  transition: transform var(--dc-transition-fast);
+}
+
+.swatch__color:hover { transform: scale(1.03); }
+
+.swatch--sm .swatch__color  { width: 60px;  height: 60px; }
+.swatch--md .swatch__color  { width: 80px;  height: 80px; }
+.swatch--lg .swatch__color  { width: 100px; height: 100px; }
+
+.swatch__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.swatch__name {
+  font-size: var(--dc-label-sm);
+  font-weight: 600;
+  color: var(--dc-on-surface);
+  white-space: nowrap;
+}
+
+.swatch__hex {
+  font-size: var(--dc-label-sm);
+  color: var(--dc-on-surface-variant);
+  font-family: monospace;
+}

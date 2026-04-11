@@ -1,0 +1,29 @@
+:host { display: block; }
+
+.card {
+  border-radius: var(--dc-round-4);
+  overflow: hidden;
+  transition: background var(--dc-transition-base), box-shadow var(--dc-transition-base);
+}
+
+/* Padding */
+.card--pad-none { padding: 0; }
+.card--pad-sm   { padding: var(--dc-space-4); }
+.card--pad-md   { padding: var(--dc-space-6); }
+.card--pad-lg   { padding: var(--dc-space-8); }
+
+/* Variants */
+.card--default  { background: var(--dc-surface-container-high); }
+.card--elevated { background: var(--dc-surface-container-highest); box-shadow: var(--dc-shadow-md); }
+.card--feature  { background: var(--dc-surface-container-high); border: 1px solid rgba(64, 72, 93, 0.25); }
+
+.card--glass {
+  background: rgba(30, 46, 74, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(64, 72, 93, 0.3);
+}
+
+/* Hoverable */
+.card--hoverable { cursor: pointer; }
+.card--hoverable:hover { background: var(--dc-surface-bright); box-shadow: var(--dc-shadow-lg); }

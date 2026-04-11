@@ -1,0 +1,36 @@
+import { r as registerInstance, a as createEvent, h } from './index-BBzp1U1H.js';
+
+const lusterButtonCss = () => `:host{display:inline-flex}:host([full-width]){display:flex;width:100%}.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--dc-space-2);border:none;border-radius:var(--dc-round-2);font-family:var(--dc-font-body);font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;position:relative;overflow:hidden;transition:all var(--dc-transition-base);letter-spacing:0.01em}.btn--full{width:100%}.btn--sm{padding:var(--dc-space-1) var(--dc-space-3);font-size:var(--dc-label-md);height:32px}.btn--md{padding:var(--dc-space-2) var(--dc-space-5);font-size:var(--dc-body-md);height:40px}.btn--lg{padding:var(--dc-space-3) var(--dc-space-6);font-size:var(--dc-body-lg);height:48px}.btn--primary{background:linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dim) 100%);color:var(--dc-on-primary);box-shadow:0 4px 20px rgba(96, 99, 238, 0.35)}.btn--primary:hover:not(:disabled){background:linear-gradient(135deg, #b5b8ff 0%, #7476f5 100%);box-shadow:0 6px 28px rgba(96, 99, 238, 0.5);transform:translateY(-1px)}.btn--primary:active:not(:disabled){transform:translateY(0);box-shadow:0 2px 12px rgba(96, 99, 238, 0.3)}.btn--secondary{background:transparent;color:var(--dc-on-surface);border:1px solid rgba(64, 72, 93, 0.5)}.btn--secondary:hover:not(:disabled){background:rgba(64, 72, 93, 0.15);border-color:rgba(64, 72, 93, 0.8)}.btn--tertiary{background:transparent;color:var(--dc-primary);padding-left:var(--dc-space-2);padding-right:var(--dc-space-2)}.btn--tertiary:hover:not(:disabled){color:var(--dc-primary-fixed);background:rgba(163, 166, 255, 0.08)}.btn--destructive{background:transparent;color:var(--dc-error);border:1px solid rgba(255, 180, 171, 0.3)}.btn--destructive:hover:not(:disabled){background:rgba(255, 180, 171, 0.1);border-color:rgba(255, 180, 171, 0.6)}.btn:disabled{opacity:0.4;cursor:not-allowed;transform:none !important;box-shadow:none !important}.btn--loading{cursor:wait}.btn__spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255, 255, 255, 0.3);border-top-color:currentColor;border-radius:var(--dc-round-full);animation:spin 0.6s linear infinite}.btn__content{display:inline-flex;align-items:center;gap:var(--dc-space-2)}@keyframes spin{to{transform:rotate(360deg)}}`;
+
+const DcButton = class {
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.dcClick = createEvent(this, "dcClick", 7);
+        this.variant = 'primary';
+        this.size = 'md';
+        this.disabled = false;
+        this.loading = false;
+        this.fullWidth = false;
+        this.type = 'button';
+        this.handleClick = () => {
+            if (!this.disabled && !this.loading) {
+                this.dcClick.emit();
+            }
+        };
+    }
+    render() {
+        return (h("button", { key: 'b1f275431288cf48cdcd77fd0ff0ce94ed6c7471', class: [
+                'btn',
+                `btn--${this.variant}`,
+                `btn--${this.size}`,
+                this.loading ? 'btn--loading' : '',
+                this.fullWidth ? 'btn--full' : '',
+            ].filter(Boolean).join(' '), disabled: this.disabled || this.loading, type: this.type, onClick: this.handleClick }, this.loading && (h("span", { key: '024a89db11699ec8f4a2606cf550ad060cf9981a', class: "btn__spinner", "aria-hidden": "true" })), h("span", { key: '8586524c1551bdf8dc6d5c597f5fc5ecebd54054', class: "btn__content" }, h("slot", { key: '5f8ace974b28574208c5f4fc146573d0bdb100c3' }))));
+    }
+};
+DcButton.style = lusterButtonCss();
+
+export { DcButton as luster_button };
+//# sourceMappingURL=luster-button.entry.esm.js.map
+
+//# sourceMappingURL=luster-button.entry.js.map
