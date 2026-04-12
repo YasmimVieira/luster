@@ -1,12 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ═══════════════════════════════════════════════════════════════
-   DARK MODE — default
+   THEMING — Consumer override API
+   ───────────────────────────────────────────────────────────────
+   Minimal brand override (works in any project):
+
+     :root {
+       --dc-primary:     #f97316;   ← your brand color
+       --dc-primary-dim: #ea580c;   ← darker shade (hover/gradient)
+       --dc-on-primary:  #ffffff;   ← text/icon on primary bg
+     }
+
+   All hover tints, focus rings, shadows, glass effects and
+   gradients cascade automatically via color-mix().
+
+   To switch between dark/light:
+     document.documentElement.setAttribute('data-theme', 'light');
+     document.documentElement.setAttribute('data-theme', 'dark');
+   Or let the browser honor prefers-color-scheme automatically.
 ═══════════════════════════════════════════════════════════════ */
+
+/* ─── DARK MODE (default) ─────────────────────────────────────── */
 :root {
   color-scheme: dark;
 
-  /* === SURFACES === */
+  /* ── Surfaces ─────────────────────────────────────────────── */
   --dc-surface:                   #060e20;
   --dc-surface-container-lowest:  #030914;
   --dc-surface-container-low:     #091328;
@@ -15,40 +33,42 @@
   --dc-surface-container-highest: #192540;
   --dc-surface-bright:            #1e2e4a;
 
-  /* === PRIMARY === */
+  /* ── Primary brand (OVERRIDE THESE TO REBRAND) ───────────── */
   --dc-primary:           #a3a6ff;
   --dc-primary-dim:       #6063ee;
   --dc-primary-fixed:     #cfd0ff;
   --dc-on-primary:        #0a0040;
   --dc-primary-container: #2b2dad;
 
-  /* === ON SURFACE === */
+  /* ── On-surface ───────────────────────────────────────────── */
   --dc-on-surface:         #dee5ff;
   --dc-on-surface-variant: #a3aac4;
 
-  /* === OUTLINE === */
+  /* ── Outline / border source ─────────────────────────────── */
   --dc-outline:         #616984;
   --dc-outline-variant: #40485d;
+  /* Semantic alias used by all border tokens below.
+     Dark mode → use outline-variant (muted).
+     Light mode → use outline (more visible on bright surfaces). */
+  --dc-border-source:   #40485d;
 
-  /* === ERROR === */
+  /* ── Error ────────────────────────────────────────────────── */
   --dc-error:              #ffb4ab;
   --dc-error-container:    #93000a;
   --dc-on-error-container: #ffdad6;
 
-  /* === SECONDARY === */
+  /* ── Secondary / tertiary ─────────────────────────────────── */
   --dc-secondary:           #b6aee4;
   --dc-secondary-container: #353065;
+  --dc-tertiary:            #e8b4c8;
 
-  /* === TERTIARY === */
-  --dc-tertiary: #e8b4c8;
-
-  /* === SEMANTIC === */
+  /* ── Semantic ─────────────────────────────────────────────── */
   --dc-success:           #4cceac;
   --dc-success-container: #1a3d35;
   --dc-warning:           #ffd166;
   --dc-warning-container: #3d3000;
 
-  /* === TYPOGRAPHY === */
+  /* ── Typography ───────────────────────────────────────────── */
   --dc-font-display: 'Manrope', sans-serif;
   --dc-font-body:    'Inter', sans-serif;
 
@@ -64,20 +84,20 @@
   --dc-title-md: 1rem;
   --dc-title-sm: 0.875rem;
 
-  --dc-body-lg:  1rem;
-  --dc-body-md:  0.875rem;
-  --dc-body-sm:  0.75rem;
+  --dc-body-lg: 1rem;
+  --dc-body-md: 0.875rem;
+  --dc-body-sm: 0.75rem;
 
-  --dc-label-lg:  0.875rem;
-  --dc-label-md:  0.75rem;
-  --dc-label-sm:  0.6875rem;
+  --dc-label-lg: 0.875rem;
+  --dc-label-md: 0.75rem;
+  --dc-label-sm: 0.6875rem;
 
   --dc-tracking-tight:  -0.02em;
-  --dc-tracking-normal: 0em;
-  --dc-tracking-wide:   0.08em;
-  --dc-tracking-wider:  0.12em;
+  --dc-tracking-normal:  0em;
+  --dc-tracking-wide:    0.08em;
+  --dc-tracking-wider:   0.12em;
 
-  /* === SPACING === */
+  /* ── Spacing (4px base) ───────────────────────────────────── */
   --dc-space-1:  0.25rem;
   --dc-space-2:  0.5rem;
   --dc-space-3:  0.75rem;
@@ -91,7 +111,7 @@
   --dc-space-20: 5rem;
   --dc-space-24: 6rem;
 
-  /* === RADIUS === */
+  /* ── Radius ───────────────────────────────────────────────── */
   --dc-round-1:    0.25rem;
   --dc-round-2:    0.5rem;
   --dc-round-3:    0.75rem;
@@ -99,171 +119,96 @@
   --dc-round-5:    1.5rem;
   --dc-round-full: 9999px;
 
-  /* === SHADOWS (tinted with primary-dim) === */
-  --dc-shadow-sm: 0 4px 24px 0 rgba(96, 99, 238, 0.08);
-  --dc-shadow-md: 0 8px 40px 0 rgba(96, 99, 238, 0.12);
-  --dc-shadow-lg: 0 16px 60px 0 rgba(96, 99, 238, 0.16);
-  --dc-shadow-xl: 0 24px 80px 0 rgba(96, 99, 238, 0.22);
-
-  /* === TRANSITIONS === */
+  /* ── Transitions ──────────────────────────────────────────── */
   --dc-transition-fast: 150ms ease;
   --dc-transition-base: 250ms ease;
   --dc-transition-slow: 400ms ease;
 
-  /* ─── ALPHA / OVERLAY TOKENS (dark mode) ──────────────────── */
+  /* ════════════════════════════════════════════════════════════
+     DERIVED TOKENS — computed from base tokens via color-mix().
+     These never need to be overridden manually; they update
+     automatically when you change --dc-primary, --dc-error,
+     --dc-surface, or --dc-border-source.
+  ════════════════════════════════════════════════════════════ */
 
-  /* Hover tints */
-  --dc-hover-tint:         rgba(163, 166, 255, 0.04);
-  --dc-hover-tint-md:      rgba(163, 166, 255, 0.06);
-  --dc-hover-tint-strong:  rgba(163, 166, 255, 0.08);
-  --dc-hover-tint-icon:    rgba(64, 72, 93, 0.15);
-  --dc-hover-tint-icon-md: rgba(64, 72, 93, 0.30);
-  --dc-icon-bg:            rgba(163, 166, 255, 0.10);
+  /* Shadows */
+  --dc-shadow-sm: 0 4px 24px 0 color-mix(in srgb, var(--dc-primary-dim)  8%, transparent);
+  --dc-shadow-md: 0 8px 40px 0 color-mix(in srgb, var(--dc-primary-dim) 12%, transparent);
+  --dc-shadow-lg: 0 16px 60px 0 color-mix(in srgb, var(--dc-primary-dim) 16%, transparent);
+  --dc-shadow-xl: 0 24px 80px 0 color-mix(in srgb, var(--dc-primary-dim) 22%, transparent);
 
-  /* Borders */
-  --dc-divider:      rgba(64, 72, 93, 0.12);
-  --dc-border-faint: rgba(64, 72, 93, 0.20);
-  --dc-border-default: rgba(64, 72, 93, 0.30);
-  --dc-border-medium:  rgba(64, 72, 93, 0.35);
-  --dc-border-strong:  rgba(64, 72, 93, 0.50);
-  --dc-border-hover:   rgba(64, 72, 93, 0.80);
+  /* Hover tints (primary-based) */
+  --dc-hover-tint:        color-mix(in srgb, var(--dc-primary)  4%, transparent);
+  --dc-hover-tint-md:     color-mix(in srgb, var(--dc-primary)  6%, transparent);
+  --dc-hover-tint-strong: color-mix(in srgb, var(--dc-primary)  8%, transparent);
+  --dc-icon-bg:           color-mix(in srgb, var(--dc-primary) 10%, transparent);
 
-  /* Overlay / glass */
-  --dc-glass-bg:         rgba(30, 46, 74, 0.55);
-  --dc-glass-nav:        rgba(30, 46, 74, 0.65);
-  --dc-glass-search:     rgba(64, 72, 93, 0.18);
-  --dc-overlay-surface:  rgba(6, 14, 32, 0.50);
-  --dc-overlay-modal:    rgba(6, 14, 32, 0.80);
+  /* Hover tints (neutral/icon buttons — border-source based) */
+  --dc-hover-tint-icon:    color-mix(in srgb, var(--dc-border-source) 15%, transparent);
+  --dc-hover-tint-icon-md: color-mix(in srgb, var(--dc-border-source) 30%, transparent);
 
-  /* Close / icon buttons */
-  --dc-close-bg:     rgba(64, 72, 93, 0.20);
-  --dc-close-hover:  rgba(64, 72, 93, 0.40);
+  /* Borders (border-source based) */
+  --dc-divider:        color-mix(in srgb, var(--dc-border-source) 12%, transparent);
+  --dc-border-faint:   color-mix(in srgb, var(--dc-border-source) 20%, transparent);
+  --dc-border-default: color-mix(in srgb, var(--dc-border-source) 30%, transparent);
+  --dc-border-medium:  color-mix(in srgb, var(--dc-border-source) 35%, transparent);
+  --dc-border-strong:  color-mix(in srgb, var(--dc-border-source) 50%, transparent);
+  --dc-border-hover:   color-mix(in srgb, var(--dc-border-source) 80%, transparent);
+
+  /* Glass / overlay (surface-based) */
+  --dc-glass-bg:        color-mix(in srgb, var(--dc-surface-bright) 55%, transparent);
+  --dc-glass-nav:       color-mix(in srgb, var(--dc-surface-bright) 65%, transparent);
+  --dc-glass-search:    color-mix(in srgb, var(--dc-border-source)  18%, transparent);
+  --dc-overlay-surface: color-mix(in srgb, var(--dc-surface) 50%, transparent);
+  --dc-overlay-modal:   color-mix(in srgb, var(--dc-surface) 80%, transparent);
+
+  /* Close / icon button states */
+  --dc-close-bg:    color-mix(in srgb, var(--dc-border-source) 20%, transparent);
+  --dc-close-hover: color-mix(in srgb, var(--dc-border-source) 40%, transparent);
 
   /* Focus rings */
-  --dc-focus-ring:       rgba(163, 166, 255, 0.12);
-  --dc-focus-ring-hover: rgba(163, 166, 255, 0.40);
-  --dc-error-focus-ring: rgba(255, 180, 171, 0.10);
+  --dc-focus-ring:       color-mix(in srgb, var(--dc-primary) 12%, transparent);
+  --dc-focus-ring-hover: color-mix(in srgb, var(--dc-primary) 40%, transparent);
+  --dc-error-focus-ring: color-mix(in srgb, var(--dc-error)   10%, transparent);
 
   /* Destructive / error states */
-  --dc-error-border:        rgba(255, 180, 171, 0.30);
-  --dc-error-border-hover:  rgba(255, 180, 171, 0.60);
-  --dc-error-bg:            rgba(255, 180, 171, 0.10);
+  --dc-error-border:       color-mix(in srgb, var(--dc-error) 30%, transparent);
+  --dc-error-border-hover: color-mix(in srgb, var(--dc-error) 60%, transparent);
+  --dc-error-bg:           color-mix(in srgb, var(--dc-error) 10%, transparent);
 
-  /* Primary button shadows & hover gradient */
-  --dc-btn-primary-shadow:       0 4px 20px rgba(96, 99, 238, 0.35);
-  --dc-btn-primary-shadow-hover: 0 6px 28px rgba(96, 99, 238, 0.50);
-  --dc-btn-primary-shadow-press: 0 2px 12px rgba(96, 99, 238, 0.30);
-  --dc-btn-primary-gradient-hover: linear-gradient(135deg, #b5b8ff 0%, #7476f5 100%);
-  --dc-spinner-border:            rgba(255, 255, 255, 0.30);
+  /* Button primary shadows */
+  --dc-btn-primary-shadow:         0 4px 20px color-mix(in srgb, var(--dc-primary-dim) 35%, transparent);
+  --dc-btn-primary-shadow-hover:   0 6px 28px color-mix(in srgb, var(--dc-primary-dim) 50%, transparent);
+  --dc-btn-primary-shadow-press:   0 2px 12px color-mix(in srgb, var(--dc-primary-dim) 30%, transparent);
+
+  /* Button primary hover gradient — lighter variant of primary */
+  --dc-btn-primary-gradient-hover: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--dc-primary)     80%, white) 0%,
+    color-mix(in srgb, var(--dc-primary-dim) 90%, white) 100%
+  );
+
+  /* Spinner track (semi-transparent white — works on any colored button) */
+  --dc-spinner-border: color-mix(in srgb, white 30%, transparent);
 
   /* Image overlays */
-  --dc-image-overlay-top:    rgba(6, 14, 32, 0.10);
-  --dc-image-overlay-bottom: rgba(6, 14, 32, 0.70);
+  --dc-image-overlay-top:    color-mix(in srgb, var(--dc-surface) 10%, transparent);
+  --dc-image-overlay-bottom: color-mix(in srgb, var(--dc-surface) 70%, transparent);
 
   /* Hero parallax glows */
-  --dc-hero-glow-primary:   rgba(163, 166, 255, 0.15);
-  --dc-hero-glow-dim:       rgba(96, 99, 238, 0.12);
-  --dc-hero-glow-secondary: rgba(182, 174, 228, 0.08);
-  --dc-hero-badge-text:     rgba(163, 166, 255, 0.70);
-  --dc-hero-badge-sub:      rgba(163, 166, 255, 0.40);
+  --dc-hero-glow-primary:   color-mix(in srgb, var(--dc-primary)   15%, transparent);
+  --dc-hero-glow-dim:       color-mix(in srgb, var(--dc-primary-dim) 12%, transparent);
+  --dc-hero-glow-secondary: color-mix(in srgb, var(--dc-secondary)   8%, transparent);
+  --dc-hero-badge-text:     color-mix(in srgb, var(--dc-primary) 70%, transparent);
+  --dc-hero-badge-sub:      color-mix(in srgb, var(--dc-primary) 40%, transparent);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   LIGHT MODE — via attribute or OS preference
-   Priority: [data-theme="light"] > prefers-color-scheme
-   To force dark regardless of OS: set data-theme="dark"
-═══════════════════════════════════════════════════════════════ */
-@mixin light-tokens {
-  color-scheme: light;
-
-  --dc-surface:                   #f5f7ff;
-  --dc-surface-container-lowest:  #ffffff;
-  --dc-surface-container-low:     #eef0ff;
-  --dc-surface-container:         #e8eaff;
-  --dc-surface-container-high:    #e0e3ff;
-  --dc-surface-container-highest: #d8dbff;
-  --dc-surface-bright:            #ffffff;
-
-  --dc-primary:           #4547ce;
-  --dc-primary-dim:       #3234b0;
-  --dc-primary-fixed:     #eaeaff;
-  --dc-on-primary:        #ffffff;
-  --dc-primary-container: #eaeaff;
-
-  --dc-on-surface:         #0d0f2d;
-  --dc-on-surface-variant: #3f4263;
-
-  --dc-outline:         #6b6d8f;
-  --dc-outline-variant: #c4c5e0;
-
-  --dc-error:              #ba1a1a;
-  --dc-error-container:    #ffdad6;
-  --dc-on-error-container: #410002;
-
-  --dc-secondary:           #5b5898;
-  --dc-secondary-container: #e4e0ff;
-
-  --dc-tertiary: #7c4e69;
-
-  --dc-success:           #006c4c;
-  --dc-success-container: #94f7cb;
-  --dc-warning:           #7c5700;
-  --dc-warning-container: #ffdea1;
-
-  --dc-shadow-sm: 0 4px 24px 0 rgba(50, 52, 176, 0.06);
-  --dc-shadow-md: 0 8px 40px 0 rgba(50, 52, 176, 0.09);
-  --dc-shadow-lg: 0 16px 60px 0 rgba(50, 52, 176, 0.12);
-  --dc-shadow-xl: 0 24px 80px 0 rgba(50, 52, 176, 0.16);
-
-  /* Alpha / overlay tokens — light mode */
-  --dc-hover-tint:         rgba(69, 71, 206, 0.04);
-  --dc-hover-tint-md:      rgba(69, 71, 206, 0.06);
-  --dc-hover-tint-strong:  rgba(69, 71, 206, 0.08);
-  --dc-hover-tint-icon:    rgba(107, 109, 143, 0.10);
-  --dc-hover-tint-icon-md: rgba(107, 109, 143, 0.18);
-  --dc-icon-bg:            rgba(69, 71, 206, 0.10);
-
-  --dc-divider:        rgba(107, 109, 143, 0.12);
-  --dc-border-faint:   rgba(107, 109, 143, 0.20);
-  --dc-border-default: rgba(107, 109, 143, 0.28);
-  --dc-border-medium:  rgba(107, 109, 143, 0.30);
-  --dc-border-strong:  rgba(107, 109, 143, 0.40);
-  --dc-border-hover:   rgba(107, 109, 143, 0.70);
-
-  --dc-glass-bg:        rgba(232, 234, 255, 0.70);
-  --dc-glass-nav:       rgba(240, 241, 255, 0.85);
-  --dc-glass-search:    rgba(107, 109, 143, 0.08);
-  --dc-overlay-surface: rgba(13, 15, 45, 0.30);
-  --dc-overlay-modal:   rgba(13, 15, 45, 0.55);
-
-  --dc-close-bg:    rgba(107, 109, 143, 0.12);
-  --dc-close-hover: rgba(107, 109, 143, 0.22);
-
-  --dc-focus-ring:       rgba(69, 71, 206, 0.15);
-  --dc-focus-ring-hover: rgba(69, 71, 206, 0.30);
-  --dc-error-focus-ring: rgba(186, 26, 26, 0.12);
-
-  --dc-error-border:       rgba(186, 26, 26, 0.25);
-  --dc-error-border-hover: rgba(186, 26, 26, 0.50);
-  --dc-error-bg:           rgba(186, 26, 26, 0.08);
-
-  --dc-btn-primary-shadow:         0 4px 20px rgba(50, 52, 176, 0.25);
-  --dc-btn-primary-shadow-hover:   0 6px 28px rgba(50, 52, 176, 0.40);
-  --dc-btn-primary-shadow-press:   0 2px 12px rgba(50, 52, 176, 0.18);
-  --dc-btn-primary-gradient-hover: linear-gradient(135deg, #6a6cf5 0%, #4547ce 100%);
-  --dc-spinner-border:             rgba(0, 0, 0, 0.20);
-
-  --dc-image-overlay-top:    rgba(13, 15, 45, 0.05);
-  --dc-image-overlay-bottom: rgba(13, 15, 45, 0.60);
-
-  --dc-hero-glow-primary:   rgba(69, 71, 206, 0.12);
-  --dc-hero-glow-dim:       rgba(50, 52, 176, 0.08);
-  --dc-hero-glow-secondary: rgba(91, 88, 152, 0.06);
-  --dc-hero-badge-text:     rgba(69, 71, 206, 0.70);
-  --dc-hero-badge-sub:      rgba(69, 71, 206, 0.40);
-}
-
-/* Apply light tokens when OS prefers light AND no explicit data-theme="dark" */
+/* ─── LIGHT MODE ──────────────────────────────────────────────────
+   Only base tokens are overridden here.
+   All derived tokens (borders, hover tints, focus rings, shadows,
+   glass, overlays, gradients) recompute automatically via
+   color-mix() from the overridden base values.
+────────────────────────────────────────────────────────────────── */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     color-scheme: light;
@@ -287,6 +232,8 @@
 
     --dc-outline:         #6b6d8f;
     --dc-outline-variant: #c4c5e0;
+    /* Use outline (darker) as border source on light surfaces */
+    --dc-border-source:   #6b6d8f;
 
     --dc-error:              #ba1a1a;
     --dc-error-container:    #ffdad6;
@@ -294,68 +241,16 @@
 
     --dc-secondary:           #5b5898;
     --dc-secondary-container: #e4e0ff;
-
-    --dc-tertiary: #7c4e69;
+    --dc-tertiary:            #7c4e69;
 
     --dc-success:           #006c4c;
     --dc-success-container: #94f7cb;
     --dc-warning:           #7c5700;
     --dc-warning-container: #ffdea1;
-
-    --dc-shadow-sm: 0 4px 24px 0 rgba(50, 52, 176, 0.06);
-    --dc-shadow-md: 0 8px 40px 0 rgba(50, 52, 176, 0.09);
-    --dc-shadow-lg: 0 16px 60px 0 rgba(50, 52, 176, 0.12);
-    --dc-shadow-xl: 0 24px 80px 0 rgba(50, 52, 176, 0.16);
-
-    --dc-hover-tint:         rgba(69, 71, 206, 0.04);
-    --dc-hover-tint-md:      rgba(69, 71, 206, 0.06);
-    --dc-hover-tint-strong:  rgba(69, 71, 206, 0.08);
-    --dc-hover-tint-icon:    rgba(107, 109, 143, 0.10);
-    --dc-hover-tint-icon-md: rgba(107, 109, 143, 0.18);
-    --dc-icon-bg:            rgba(69, 71, 206, 0.10);
-
-    --dc-divider:        rgba(107, 109, 143, 0.12);
-    --dc-border-faint:   rgba(107, 109, 143, 0.20);
-    --dc-border-default: rgba(107, 109, 143, 0.28);
-    --dc-border-medium:  rgba(107, 109, 143, 0.30);
-    --dc-border-strong:  rgba(107, 109, 143, 0.40);
-    --dc-border-hover:   rgba(107, 109, 143, 0.70);
-
-    --dc-glass-bg:        rgba(232, 234, 255, 0.70);
-    --dc-glass-nav:       rgba(240, 241, 255, 0.85);
-    --dc-glass-search:    rgba(107, 109, 143, 0.08);
-    --dc-overlay-surface: rgba(13, 15, 45, 0.30);
-    --dc-overlay-modal:   rgba(13, 15, 45, 0.55);
-
-    --dc-close-bg:    rgba(107, 109, 143, 0.12);
-    --dc-close-hover: rgba(107, 109, 143, 0.22);
-
-    --dc-focus-ring:       rgba(69, 71, 206, 0.15);
-    --dc-focus-ring-hover: rgba(69, 71, 206, 0.30);
-    --dc-error-focus-ring: rgba(186, 26, 26, 0.12);
-
-    --dc-error-border:       rgba(186, 26, 26, 0.25);
-    --dc-error-border-hover: rgba(186, 26, 26, 0.50);
-    --dc-error-bg:           rgba(186, 26, 26, 0.08);
-
-    --dc-btn-primary-shadow:         0 4px 20px rgba(50, 52, 176, 0.25);
-    --dc-btn-primary-shadow-hover:   0 6px 28px rgba(50, 52, 176, 0.40);
-    --dc-btn-primary-shadow-press:   0 2px 12px rgba(50, 52, 176, 0.18);
-    --dc-btn-primary-gradient-hover: linear-gradient(135deg, #6a6cf5 0%, #4547ce 100%);
-    --dc-spinner-border:             rgba(0, 0, 0, 0.20);
-
-    --dc-image-overlay-top:    rgba(13, 15, 45, 0.05);
-    --dc-image-overlay-bottom: rgba(13, 15, 45, 0.60);
-
-    --dc-hero-glow-primary:   rgba(69, 71, 206, 0.12);
-    --dc-hero-glow-dim:       rgba(50, 52, 176, 0.08);
-    --dc-hero-glow-secondary: rgba(91, 88, 152, 0.06);
-    --dc-hero-badge-text:     rgba(69, 71, 206, 0.70);
-    --dc-hero-badge-sub:      rgba(69, 71, 206, 0.40);
   }
 }
 
-/* Explicit light mode override (beats OS preference) */
+/* Explicit light override (beats @media) */
 [data-theme="light"] {
   color-scheme: light;
 
@@ -378,6 +273,7 @@
 
   --dc-outline:         #6b6d8f;
   --dc-outline-variant: #c4c5e0;
+  --dc-border-source:   #6b6d8f;
 
   --dc-error:              #ba1a1a;
   --dc-error-container:    #ffdad6;
@@ -385,74 +281,20 @@
 
   --dc-secondary:           #5b5898;
   --dc-secondary-container: #e4e0ff;
-
-  --dc-tertiary: #7c4e69;
+  --dc-tertiary:            #7c4e69;
 
   --dc-success:           #006c4c;
   --dc-success-container: #94f7cb;
   --dc-warning:           #7c5700;
   --dc-warning-container: #ffdea1;
-
-  --dc-shadow-sm: 0 4px 24px 0 rgba(50, 52, 176, 0.06);
-  --dc-shadow-md: 0 8px 40px 0 rgba(50, 52, 176, 0.09);
-  --dc-shadow-lg: 0 16px 60px 0 rgba(50, 52, 176, 0.12);
-  --dc-shadow-xl: 0 24px 80px 0 rgba(50, 52, 176, 0.16);
-
-  --dc-hover-tint:         rgba(69, 71, 206, 0.04);
-  --dc-hover-tint-md:      rgba(69, 71, 206, 0.06);
-  --dc-hover-tint-strong:  rgba(69, 71, 206, 0.08);
-  --dc-hover-tint-icon:    rgba(107, 109, 143, 0.10);
-  --dc-hover-tint-icon-md: rgba(107, 109, 143, 0.18);
-  --dc-icon-bg:            rgba(69, 71, 206, 0.10);
-
-  --dc-divider:        rgba(107, 109, 143, 0.12);
-  --dc-border-faint:   rgba(107, 109, 143, 0.20);
-  --dc-border-default: rgba(107, 109, 143, 0.28);
-  --dc-border-medium:  rgba(107, 109, 143, 0.30);
-  --dc-border-strong:  rgba(107, 109, 143, 0.40);
-  --dc-border-hover:   rgba(107, 109, 143, 0.70);
-
-  --dc-glass-bg:        rgba(232, 234, 255, 0.70);
-  --dc-glass-nav:       rgba(240, 241, 255, 0.85);
-  --dc-glass-search:    rgba(107, 109, 143, 0.08);
-  --dc-overlay-surface: rgba(13, 15, 45, 0.30);
-  --dc-overlay-modal:   rgba(13, 15, 45, 0.55);
-
-  --dc-close-bg:    rgba(107, 109, 143, 0.12);
-  --dc-close-hover: rgba(107, 109, 143, 0.22);
-
-  --dc-focus-ring:       rgba(69, 71, 206, 0.15);
-  --dc-focus-ring-hover: rgba(69, 71, 206, 0.30);
-  --dc-error-focus-ring: rgba(186, 26, 26, 0.12);
-
-  --dc-error-border:       rgba(186, 26, 26, 0.25);
-  --dc-error-border-hover: rgba(186, 26, 26, 0.50);
-  --dc-error-bg:           rgba(186, 26, 26, 0.08);
-
-  --dc-btn-primary-shadow:         0 4px 20px rgba(50, 52, 176, 0.25);
-  --dc-btn-primary-shadow-hover:   0 6px 28px rgba(50, 52, 176, 0.40);
-  --dc-btn-primary-shadow-press:   0 2px 12px rgba(50, 52, 176, 0.18);
-  --dc-btn-primary-gradient-hover: linear-gradient(135deg, #6a6cf5 0%, #4547ce 100%);
-  --dc-spinner-border:             rgba(0, 0, 0, 0.20);
-
-  --dc-image-overlay-top:    rgba(13, 15, 45, 0.05);
-  --dc-image-overlay-bottom: rgba(13, 15, 45, 0.60);
-
-  --dc-hero-glow-primary:   rgba(69, 71, 206, 0.12);
-  --dc-hero-glow-dim:       rgba(50, 52, 176, 0.08);
-  --dc-hero-glow-secondary: rgba(91, 88, 152, 0.06);
-  --dc-hero-badge-text:     rgba(69, 71, 206, 0.70);
-  --dc-hero-badge-sub:      rgba(69, 71, 206, 0.40);
 }
 
-/* Explicit dark mode override (beats OS preference) */
+/* Explicit dark override (beats @media) */
 [data-theme="dark"] {
   color-scheme: dark;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   BASE STYLES
-═══════════════════════════════════════════════════════════════ */
+/* ─── BASE STYLES ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
