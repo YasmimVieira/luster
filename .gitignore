@@ -47,3 +47,23 @@ Thumbs.db
 
 
 storybook-static
+
+www
+
+# Stencil.js
+.stencil/
+stencil-ds/loader/
+stencil-ds/dist/
+stencil-ds/www/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+yarn-debug.log*
+
+# Package lock (keep only one — npm or yarn)
+# yarn.lock

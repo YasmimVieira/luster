@@ -33,6 +33,8 @@
     "build:prod": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "generate": "stencil generate",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
     "prepublishOnly": "npm run build:prod"
   },
   "keywords": [

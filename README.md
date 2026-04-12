@@ -1,4 +1,4 @@
-# Indigo Logic — Component Library
+# Luster — Component Library
 
 > Design system editorial com Angular + Storybook + Nx · v2.4.0
 
@@ -10,7 +10,7 @@ indigo-logic/
 │   ├── main.ts        ← config do Storybook (stories, addons, framework)
 │   ├── preview.ts     ← decorators globais, backgrounds, tokens
 │   ├── manager.ts     ← tema da UI do Storybook
-│   └── theme.ts       ← tema personalizado Indigo Logic
+│   └── theme.ts       ← tema personalizado Luster
 │
 ├── libs/
 │   └── ui/
