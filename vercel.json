@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd stencil-ds && npm ci && npm run build:prod && mkdir -p ../docs/dist && cp -r dist/luster/* ../docs/dist/",
+  "outputDirectory": "docs",
+  "installCommand": "echo 'dependencies installed per-package'"
+}

@@ -1,6 +1,6 @@
-# Publishing & Integration Guide — @luster/ui
+# Publishing & Integration Guide — @yvstudio/luster-ui
 
-This guide covers how to build, publish to npm, and integrate `@luster/ui` in any project or framework.
+This guide covers how to build, publish to npm, and integrate `@yvstudio/luster-ui` in any project or framework.
 
 ---
 
@@ -36,7 +36,7 @@ This guide covers how to build, publish to npm, and integrate `@luster/ui` in an
   <luster-badge variant="success" dot>Active</luster-badge>
 
   <script type="module">
-    import { defineCustomElements } from '@luster/ui/loader';
+    import { defineCustomElements } from '@yvstudio/luster-ui/loader';
     defineCustomElements();
   </script>
 </body>
@@ -48,7 +48,7 @@ This guide covers how to build, publish to npm, and integrate `@luster/ui` in an
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@luster/ui/dist/luster/luster.esm.js">
+  src="https://unpkg.com/@yvstudio/luster-ui/dist/luster/luster.esm.js">
 </script>
 
 <luster-button variant="primary">Hello from CDN</luster-button>
@@ -61,7 +61,7 @@ This guide covers how to build, publish to npm, and integrate `@luster/ui` in an
 ### Setup (`main.tsx` or `index.tsx`)
 
 ```tsx
-import { defineCustomElements } from '@luster/ui/loader';
+import { defineCustomElements } from '@yvstudio/luster-ui/loader';
 defineCustomElements();
 ```
 
@@ -100,7 +100,7 @@ export function Home() {
 Create `src/luster.d.ts`:
 
 ```ts
-import type { JSX as LusterJSX } from '@luster/ui/dist/types/components';
+import type { JSX as LusterJSX } from '@yvstudio/luster-ui/dist/types/components';
 
 type LusterElements = {
   [K in keyof LusterJSX.IntrinsicElements]: LusterJSX.IntrinsicElements[K];
@@ -148,7 +148,7 @@ function MyModal() {
 ```ts
 import { createApp } from 'vue';
 import App from './App.vue';
-import { defineCustomElements } from '@luster/ui/loader';
+import { defineCustomElements } from '@yvstudio/luster-ui/loader';
 
 defineCustomElements();
 
@@ -211,7 +211,7 @@ const email = ref('');
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { defineCustomElements } from '@luster/ui/loader';
+import { defineCustomElements } from '@yvstudio/luster-ui/loader';
 
 defineCustomElements();
 
@@ -252,7 +252,7 @@ export class AppModule {}
 All hover tints, shadows, focus rings, glass effects, and gradients are computed via `color-mix()` from three tokens. Override them anywhere in your CSS:
 
 ```css
-/* your-app.css  — applied AFTER importing @luster/ui */
+/* your-app.css  — applied AFTER importing @yvstudio/luster-ui */
 :root {
   --dc-primary:     #f97316;  /* your brand color */
   --dc-primary-dim: #ea580c;  /* darker shade for gradients & shadows */
@@ -357,7 +357,7 @@ if (saved) setTheme(saved);
 
 ### Via OS preference (automatic — no JS needed)
 
-Just import `@luster/ui` — it uses `@media (prefers-color-scheme: light)` out of the box. No configuration required.
+Just import `@yvstudio/luster-ui` — it uses `@media (prefers-color-scheme: light)` out of the box. No configuration required.
 
 ### In React with a hook
 

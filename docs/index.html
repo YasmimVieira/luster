@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luster UI — Component Docs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── DESIGN TOKENS ───────────────────────────────────────── */
+    :root {
+      color-scheme: dark;
+      --dc-surface:                   #060e20;
+      --dc-surface-container-lowest:  #030914;
+      --dc-surface-container-low:     #091328;
+      --dc-surface-container:         #0d1a35;
+      --dc-surface-container-high:    #141f38;
+      --dc-surface-bright:            #1e2e4a;
+      --dc-primary:           #a3a6ff;
+      --dc-primary-dim:       #6063ee;
+      --dc-on-primary:        #0a0040;
+      --dc-on-surface:        #dee5ff;
+      --dc-on-surface-variant:#a3aac4;
+      --dc-border-source:     #40485d;
+      --dc-error:             #ffb4ab;
+      --dc-success:           #4cceac;
+      --dc-warning:           #ffd166;
+      --dc-secondary:         #b6aee4;
+      --dc-font-display: 'Manrope', sans-serif;
+      --dc-font-body:    'Inter', sans-serif;
+      --dc-body-sm:  0.75rem;
+      --dc-body-md:  0.875rem;
+      --dc-body-lg:  1rem;
+      --dc-label-sm: 0.6875rem;
+      --dc-label-md: 0.75rem;
+      --dc-title-sm: 0.875rem;
+      --dc-title-md: 1rem;
+      --dc-title-lg: 1.25rem;
+      --dc-headline-sm: 1.375rem;
+      --dc-headline-md: 1.75rem;
+      --dc-space-1:  0.25rem;  --dc-space-2:  0.5rem;
+      --dc-space-3:  0.75rem;  --dc-space-4:  1rem;
+      --dc-space-5:  1.25rem;  --dc-space-6:  1.5rem;
+      --dc-space-8:  2rem;     --dc-space-10: 2.5rem;
+      --dc-space-12: 3rem;     --dc-space-16: 4rem;
+      --dc-round-1: 0.25rem;  --dc-round-2: 0.5rem;
+      --dc-round-3: 0.75rem;  --dc-round-4: 1rem;
+      --dc-round-full: 9999px;
+      --dc-transition-fast: 150ms ease;
+      --dc-transition-base: 250ms ease;
+      /* Derived */
+      --dc-hover-tint:     color-mix(in srgb, var(--dc-primary) 5%, transparent);
+      --dc-border-faint:   color-mix(in srgb, var(--dc-border-source) 20%, transparent);
+      --dc-border-default: color-mix(in srgb, var(--dc-border-source) 30%, transparent);
+      --dc-border-medium:  color-mix(in srgb, var(--dc-border-source) 40%, transparent);
+      --dc-divider:        color-mix(in srgb, var(--dc-border-source) 12%, transparent);
+      --dc-glass-nav:      color-mix(in srgb, var(--dc-surface-bright) 65%, transparent);
+    }
+
+    [data-theme="light"] {
+      color-scheme: light;
+      --dc-surface:                   #f5f7ff;
+      --dc-surface-container-lowest:  #ffffff;
+      --dc-surface-container-low:     #eef0ff;
+      --dc-surface-container:         #e8eaff;
+      --dc-surface-container-high:    #e0e3ff;
+      --dc-surface-bright:            #ffffff;
+      --dc-primary:           #4547ce;
+      --dc-primary-dim:       #3234b0;
+      --dc-on-primary:        #ffffff;
+      --dc-on-surface:        #0d0f2d;
+      --dc-on-surface-variant:#3f4263;
+      --dc-border-source:     #6b6d8f;
+      --dc-error:             #ba1a1a;
+      --dc-success:           #006c4c;
+      --dc-warning:           #7c5700;
+      --dc-secondary:         #5b5898;
+    }
+
+    /* ── RESET ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--dc-surface);
+      color: var(--dc-on-surface);
+      font-family: var(--dc-font-body);
+      font-size: var(--dc-body-md);
+      line-height: 1.6;
+    }
+    a { color: var(--dc-primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── HEADER ──────────────────────────────────────────────── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 60px;
+      display: flex; align-items: center; gap: var(--dc-space-8);
+      padding: 0 var(--dc-space-6);
+      background: var(--dc-glass-nav);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--dc-border-faint);
+    }
+    .logo { display: flex; align-items: center; gap: var(--dc-space-3); flex-shrink: 0; text-decoration: none; }
+    .logo__mark {
+      width: 32px; height: 32px;
+      background: var(--dc-primary);
+      border-radius: var(--dc-round-2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--dc-on-primary);
+      font-size: 1rem; font-weight: 800;
+      font-family: var(--dc-font-display);
+    }
+    .logo__name {
+      font-family: var(--dc-font-display);
+      font-size: var(--dc-title-md);
+      font-weight: 700;
+      color: var(--dc-on-surface);
+      line-height: 1.2;
+    }
+    .logo__sub {
+      display: block;
+      font-size: var(--dc-label-sm);
+      color: var(--dc-on-surface-variant);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .header-nav { display: flex; align-items: center; gap: var(--dc-space-6); flex: 1; }
+    .header-nav a {
+      font-size: var(--dc-body-sm); font-weight: 500;
+      color: var(--dc-on-surface-variant);
+      transition: color var(--dc-transition-fast);
+    }
+    .header-nav a:hover { color: var(--dc-on-surface); text-decoration: none; }
+    .badge-version {
+      padding: 2px var(--dc-space-2);
+      background: color-mix(in srgb, var(--dc-primary) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--dc-primary) 25%, transparent);
+      border-radius: var(--dc-round-full);
+      font-size: var(--dc-label-sm); font-weight: 600;
+      color: var(--dc-primary);
+    }
+    .theme-btn {
+      margin-left: auto;
+      display: flex; align-items: center; gap: var(--dc-space-2);
+      padding: var(--dc-space-2) var(--dc-space-3);
+      background: color-mix(in srgb, var(--dc-border-source) 15%, transparent);
+      border: 1px solid var(--dc-border-default);
+      border-radius: var(--dc-round-2);
+      color: var(--dc-on-surface-variant);
+      font-size: var(--dc-label-md); font-weight: 500;
+      font-family: var(--dc-font-body);
+      cursor: pointer;
+      transition: all var(--dc-transition-fast);
+    }
+    .theme-btn:hover { color: var(--dc-on-surface); background: color-mix(in srgb, var(--dc-border-source) 28%, transparent); }
+
+    /* ── LAYOUT ──────────────────────────────────────────────── */
+    .page-body { display: flex; padding-top: 60px; min-height: 100vh; }
+
+    .sidebar {
+      position: fixed; top: 60px; left: 0; bottom: 0; width: 232px;
+      overflow-y: auto;
+      padding: var(--dc-space-6) var(--dc-space-3);
+      border-right: 1px solid var(--dc-border-faint);
+      background: var(--dc-surface-container-lowest);
+    }
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--dc-border-default); border-radius: 2px; }
+    .nav-group { margin-bottom: var(--dc-space-5); }
+    .nav-group__label {
+      display: block;
+      font-size: var(--dc-label-sm); font-weight: 700;
+      color: var(--dc-on-surface-variant);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: var(--dc-space-1);
+      padding: 0 var(--dc-space-3);
+    }
+    .nav-link {
+      display: block;
+      padding: 6px var(--dc-space-3);
+      border-radius: var(--dc-round-2);
+      font-size: var(--dc-body-sm);
+      color: var(--dc-on-surface-variant);
+      transition: all var(--dc-transition-fast);
+      text-decoration: none;
+    }
+    .nav-link:hover { background: var(--dc-hover-tint); color: var(--dc-on-surface); text-decoration: none; }
+    .nav-link.active {
+      background: color-mix(in srgb, var(--dc-primary) 10%, transparent);
+      color: var(--dc-primary); font-weight: 500;
+    }
+
+    .main-content {
+      margin-left: 232px; flex: 1;
+      max-width: 860px;
+      padding: var(--dc-space-12) var(--dc-space-10);
+    }
+
+    /* ── INTRO ───────────────────────────────────────────────── */
+    .page-intro { margin-bottom: var(--dc-space-16); }
+    .page-intro h1 {
+      font-family: var(--dc-font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.15;
+      color: var(--dc-on-surface);
+      margin-bottom: var(--dc-space-4);
+    }
+    .page-intro p { font-size: var(--dc-body-lg); color: var(--dc-on-surface-variant); max-width: 560px; }
+    .install-row {
+      margin-top: var(--dc-space-6);
+      display: inline-flex; align-items: center; gap: var(--dc-space-4);
+      background: var(--dc-surface-container-low);
+      border: 1px solid var(--dc-border-default);
+      border-radius: var(--dc-round-3);
+      padding: var(--dc-space-3) var(--dc-space-5);
+    }
+    .install-row code { font-family: 'Courier New', monospace; color: var(--dc-primary); }
+
+    /* ── COMPONENT SECTION ───────────────────────────────────── */
+    .comp-section { margin-bottom: var(--dc-space-16); scroll-margin-top: 80px; }
+    .comp-section + .comp-section { border-top: 1px solid var(--dc-border-faint); padding-top: var(--dc-space-16); }
+    .section-group-label {
+      font-size: var(--dc-label-sm); font-weight: 700;
+      color: var(--dc-primary);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: var(--dc-space-2);
+    }
+    .comp-title {
+      font-family: var(--dc-font-display);
+      font-size: var(--dc-headline-md); font-weight: 700;
+      color: var(--dc-on-surface);
+      margin-bottom: var(--dc-space-2);
+    }
+    .comp-desc { color: var(--dc-on-surface-variant); margin-bottom: var(--dc-space-6); max-width: 580px; }
+
+    /* ── DEMO BLOCK ──────────────────────────────────────────── */
+    .demo-block {
+      border: 1px solid var(--dc-border-default);
+      border-radius: var(--dc-round-4);
+      overflow: hidden;
+      margin-bottom: var(--dc-space-6);
+    }
+    .demo-preview {
+      padding: var(--dc-space-8);
+      background: var(--dc-surface-container-low);
+      display: flex; flex-wrap: wrap; gap: var(--dc-space-4);
+      align-items: flex-start; min-height: 80px;
+    }
+    .demo-preview.col  { flex-direction: column; }
+    .demo-preview.center { justify-content: center; align-items: center; }
+    .demo-preview.fill { padding: 0; display: block; }
+    .code-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--dc-space-3) var(--dc-space-5);
+      background: var(--dc-surface-container);
+      border-top: 1px solid var(--dc-border-faint);
+    }
+    .code-header span {
+      font-size: var(--dc-label-md); font-weight: 700;
+      color: var(--dc-on-surface-variant);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    pre {
+      background: var(--dc-surface-container-high);
+      padding: var(--dc-space-5); overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem; line-height: 1.75;
+      color: var(--dc-on-surface);
+      tab-size: 2;
+    }
+    pre::-webkit-scrollbar { height: 3px; }
+    pre::-webkit-scrollbar-thumb { background: var(--dc-border-default); }
+
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px var(--dc-space-3);
+      background: none;
+      border: 1px solid var(--dc-border-default);
+      border-radius: var(--dc-round-2);
+      color: var(--dc-on-surface-variant);
+      font-size: var(--dc-label-md); font-family: var(--dc-font-body);
+      cursor: pointer; transition: all var(--dc-transition-fast);
+    }
+    .copy-btn:hover { background: var(--dc-hover-tint); color: var(--dc-on-surface); }
+    .copy-btn.copied { color: var(--dc-success); border-color: var(--dc-success); }
+
+    /* ── PROPS TABLE ─────────────────────────────────────────── */
+    .props-wrap { border: 1px solid var(--dc-border-default); border-radius: var(--dc-round-3); overflow: hidden; margin-bottom: var(--dc-space-4); }
+    .props-table { width: 100%; border-collapse: collapse; font-size: var(--dc-body-sm); }
+    .props-table th {
+      text-align: left;
+      padding: var(--dc-space-2) var(--dc-space-4);
+      font-size: var(--dc-label-sm); font-weight: 700;
+      color: var(--dc-on-surface-variant);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--dc-surface-container);
+      border-bottom: 1px solid var(--dc-border-default);
+    }
+    .props-table td {
+      padding: var(--dc-space-3) var(--dc-space-4);
+      border-bottom: 1px solid var(--dc-divider);
+      color: var(--dc-on-surface); vertical-align: top;
+    }
+    .props-table tr:last-child td { border-bottom: none; }
+    .props-table td:first-child  { color: var(--dc-primary); font-family: 'Courier New', monospace; font-weight: 600; white-space: nowrap; }
+    .props-table td:nth-child(2) { color: var(--dc-secondary); font-family: 'Courier New', monospace; font-size: 0.73rem; }
+    .props-table td:nth-child(4) { color: var(--dc-on-surface-variant); font-family: 'Courier New', monospace; font-size: 0.73rem; white-space: nowrap; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    .site-footer {
+      margin-left: 232px;
+      padding: var(--dc-space-8) var(--dc-space-10);
+      border-top: 1px solid var(--dc-border-faint);
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--dc-on-surface-variant); font-size: var(--dc-body-sm);
+    }
+    .site-footer a { color: var(--dc-primary); }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────────── -->
+<header class="site-header">
+  <a href="#" class="logo">
+    <div class="logo__mark">L</div>
+    <div>
+      <span class="logo__name">Luster UI</span>
+      <span class="logo__sub">Docs</span>
+    </div>
+  </a>
+  <nav class="header-nav">
+    <a href="#get-started">Get started</a>
+    <a href="#button">Components</a>
+    <a href="#theming">Theming</a>
+    <a href="https://github.com/YasmimVieira/digital-curator-ds" target="_blank">GitHub ↗</a>
+    <span class="badge-version">v1.0.0</span>
+  </nav>
+  <button class="theme-btn" id="themeToggle">
+    <span id="themeIcon">☀</span>
+    <span id="themeLabel">Light mode</span>
+  </button>
+</header>
+
+<div class="page-body">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="nav-group">
+      <span class="nav-group__label">Overview</span>
+      <a href="#get-started" class="nav-link">Get Started</a>
+      <a href="#theming"     class="nav-link">Theming</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group__label">Foundations</span>
+      <a href="#button"   class="nav-link">Button</a>
+      <a href="#badge"    class="nav-link">Badge</a>
+      <a href="#input"    class="nav-link">Input</a>
+      <a href="#checkbox" class="nav-link">Checkbox</a>
+      <a href="#toggle"   class="nav-link">Toggle</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group__label">Feedback</span>
+      <a href="#alert"     class="nav-link">Alert</a>
+      <a href="#modal"     class="nav-link">Modal</a>
+      <a href="#accordion" class="nav-link">Accordion</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group__label">Cards</span>
+      <a href="#card"          class="nav-link">Card</a>
+      <a href="#article-card"  class="nav-link">Article Card</a>
+      <a href="#profile-card"  class="nav-link">Profile Card</a>
+      <a href="#stat-card"     class="nav-link">Stat Card</a>
+      <a href="#feature-quote" class="nav-link">Feature Quote</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group__label">Navigation</span>
+      <a href="#navbar"  class="nav-link">Navbar</a>
+      <a href="#sidebar-comp" class="nav-link">Sidebar</a>
+      <a href="#tabs"    class="nav-link">Tabs</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group__label">Data</span>
+      <a href="#resource-table"  class="nav-link">Resource Table</a>
+      <a href="#activity-item"   class="nav-link">Activity Item</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group__label">Layout</span>
+      <a href="#hero"         class="nav-link">Hero</a>
+      <a href="#color-swatch" class="nav-link">Color Swatch</a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ────────────────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- GET STARTED -->
+    <section id="get-started" class="comp-section">
+      <div class="page-intro">
+        <h1>Luster UI</h1>
+        <p>Editorial-first Web Components design system. 20 components, dark/light mode, any brand color — works in React, Vue, Angular and plain HTML.</p>
+        <div class="install-row">
+          <code>npm install @yvstudio/luster-ui</code>
+          <button class="copy-btn" onclick="copyText('npm install @yvstudio/luster-ui', this)">Copy</button>
+        </div>
+      </div>
+
+      <p class="section-group-label">Quick start</p>
+      <div class="demo-block">
+        <div class="code-header"><span>JS / TS</span><button class="copy-btn" onclick="copyCode('qs-js', this)">Copy</button></div>
+        <pre><code id="qs-js">import { defineCustomElements } from '@yvstudio/luster-ui/loader';
+defineCustomElements();</code></pre>
+      </div>
+
+      <div class="demo-block">
+        <div class="code-header"><span>CDN — no build step</span><button class="copy-btn" onclick="copyCode('qs-cdn', this)">Copy</button></div>
+        <pre><code id="qs-cdn">&lt;script type="module"
+  src="https://unpkg.com/@yvstudio/luster-ui/dist/luster/luster.esm.js"&gt;
+&lt;/script&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── BUTTON ── -->
+    <section id="button" class="comp-section">
+      <p class="section-group-label">Foundations</p>
+      <h2 class="comp-title">Button</h2>
+      <p class="comp-desc">Primary interactive element. 4 variants, 3 sizes, loading state and full-width mode.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-button variant="primary">Primary</luster-button>
+          <luster-button variant="secondary">Secondary</luster-button>
+          <luster-button variant="tertiary">Tertiary</luster-button>
+          <luster-button variant="destructive">Destructive</luster-button>
+          <luster-button variant="primary" loading>Loading</luster-button>
+          <luster-button variant="primary" disabled>Disabled</luster-button>
+        </div>
+        <div class="code-header"><span>Variants</span><button class="copy-btn" onclick="copyCode('btn-variants', this)">Copy</button></div>
+        <pre><code id="btn-variants">&lt;luster-button variant="primary"&gt;Primary&lt;/luster-button&gt;
+&lt;luster-button variant="secondary"&gt;Secondary&lt;/luster-button&gt;
+&lt;luster-button variant="tertiary"&gt;Tertiary&lt;/luster-button&gt;
+&lt;luster-button variant="destructive"&gt;Destructive&lt;/luster-button&gt;
+&lt;luster-button variant="primary" loading&gt;Loading&lt;/luster-button&gt;
+&lt;luster-button variant="primary" disabled&gt;Disabled&lt;/luster-button&gt;</code></pre>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-button variant="primary" size="sm">Small</luster-button>
+          <luster-button variant="primary" size="md">Medium</luster-button>
+          <luster-button variant="primary" size="lg">Large</luster-button>
+        </div>
+        <div class="code-header"><span>Sizes</span><button class="copy-btn" onclick="copyCode('btn-sizes', this)">Copy</button></div>
+        <pre><code id="btn-sizes">&lt;luster-button size="sm"&gt;Small&lt;/luster-button&gt;
+&lt;luster-button size="md"&gt;Medium&lt;/luster-button&gt;
+&lt;luster-button size="lg"&gt;Large&lt;/luster-button&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>variant</td><td>'primary' | 'secondary' | 'tertiary' | 'destructive'</td><td>Visual style</td><td>'primary'</td></tr>
+            <tr><td>size</td><td>'sm' | 'md' | 'lg'</td><td>Button size</td><td>'md'</td></tr>
+            <tr><td>loading</td><td>boolean</td><td>Shows spinner, disables interaction</td><td>false</td></tr>
+            <tr><td>disabled</td><td>boolean</td><td>Disabled state</td><td>false</td></tr>
+            <tr><td>full-width</td><td>boolean</td><td>Stretches to container width</td><td>false</td></tr>
+            <tr><td>type</td><td>'button' | 'submit' | 'reset'</td><td>Native button type</td><td>'button'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── BADGE ── -->
+    <section id="badge" class="comp-section">
+      <h2 class="comp-title">Badge</h2>
+      <p class="comp-desc">Inline status indicator. Supports dot prefix for minimal presence.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-badge variant="default">Default</luster-badge>
+          <luster-badge variant="primary">Primary</luster-badge>
+          <luster-badge variant="success">Success</luster-badge>
+          <luster-badge variant="warning">Warning</luster-badge>
+          <luster-badge variant="error">Error</luster-badge>
+          <luster-badge variant="beta">Beta</luster-badge>
+          <luster-badge variant="live">Live</luster-badge>
+        </div>
+        <div class="code-header"><span>Variants</span><button class="copy-btn" onclick="copyCode('badge-v', this)">Copy</button></div>
+        <pre><code id="badge-v">&lt;luster-badge variant="default"&gt;Default&lt;/luster-badge&gt;
+&lt;luster-badge variant="success"&gt;Success&lt;/luster-badge&gt;
+&lt;luster-badge variant="warning"&gt;Warning&lt;/luster-badge&gt;
+&lt;luster-badge variant="error"&gt;Error&lt;/luster-badge&gt;
+&lt;luster-badge variant="beta"&gt;Beta&lt;/luster-badge&gt;
+&lt;luster-badge variant="live"&gt;Live&lt;/luster-badge&gt;</code></pre>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-badge variant="success" dot>Active</luster-badge>
+          <luster-badge variant="warning" dot>Pending</luster-badge>
+          <luster-badge variant="error" dot>Offline</luster-badge>
+        </div>
+        <div class="code-header"><span>With dot</span><button class="copy-btn" onclick="copyCode('badge-dot', this)">Copy</button></div>
+        <pre><code id="badge-dot">&lt;luster-badge variant="success" dot&gt;Active&lt;/luster-badge&gt;
+&lt;luster-badge variant="warning" dot&gt;Pending&lt;/luster-badge&gt;
+&lt;luster-badge variant="error"   dot&gt;Offline&lt;/luster-badge&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>variant</td><td>'default' | 'primary' | 'success' | 'warning' | 'error' | 'beta' | 'live'</td><td>Color scheme</td><td>'default'</td></tr>
+            <tr><td>dot</td><td>boolean</td><td>Shows colored dot prefix</td><td>false</td></tr>
+            <tr><td>size</td><td>'sm' | 'md'</td><td>Badge size</td><td>'md'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── INPUT ── -->
+    <section id="input" class="comp-section">
+      <h2 class="comp-title">Input</h2>
+      <p class="comp-desc">Text field with label, helper text and error state. Fully accessible.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview col" style="max-width: 400px;">
+          <luster-input label="Email" placeholder="you@example.com" type="email"></luster-input>
+          <luster-input label="Password" type="password" helper-text="At least 8 characters"></luster-input>
+          <luster-input label="Username" value="@taken" error error-message="Username is already taken"></luster-input>
+          <luster-input label="Disabled field" placeholder="Read only" disabled></luster-input>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('input-c', this)">Copy</button></div>
+        <pre><code id="input-c">&lt;luster-input
+  label="Email"
+  placeholder="you@example.com"
+  type="email"
+&gt;&lt;/luster-input&gt;
+
+&lt;luster-input
+  label="Password"
+  type="password"
+  helper-text="At least 8 characters"
+&gt;&lt;/luster-input&gt;
+
+&lt;luster-input
+  label="Username"
+  error
+  error-message="Username is already taken"
+&gt;&lt;/luster-input&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>label</td><td>string</td><td>Field label</td><td>''</td></tr>
+            <tr><td>placeholder</td><td>string</td><td>Placeholder text</td><td>''</td></tr>
+            <tr><td>type</td><td>string</td><td>Native input type</td><td>'text'</td></tr>
+            <tr><td>value</td><td>string</td><td>Field value</td><td>''</td></tr>
+            <tr><td>error</td><td>boolean</td><td>Error state</td><td>false</td></tr>
+            <tr><td>error-message</td><td>string</td><td>Error text below field</td><td>''</td></tr>
+            <tr><td>helper-text</td><td>string</td><td>Helper text below field</td><td>''</td></tr>
+            <tr><td>disabled</td><td>boolean</td><td>Disabled state</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── CHECKBOX ── -->
+    <section id="checkbox" class="comp-section">
+      <h2 class="comp-title">Checkbox</h2>
+      <p class="comp-desc">Controlled checkbox with indeterminate state support.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-checkbox label="Unchecked"></luster-checkbox>
+          <luster-checkbox label="Checked" checked></luster-checkbox>
+          <luster-checkbox label="Indeterminate" indeterminate></luster-checkbox>
+          <luster-checkbox label="Disabled" disabled></luster-checkbox>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('chk-c', this)">Copy</button></div>
+        <pre><code id="chk-c">&lt;luster-checkbox label="Accept terms"&gt;&lt;/luster-checkbox&gt;
+&lt;luster-checkbox label="Pre-selected" checked&gt;&lt;/luster-checkbox&gt;
+&lt;luster-checkbox label="Partial" indeterminate&gt;&lt;/luster-checkbox&gt;
+&lt;luster-checkbox label="Disabled" disabled&gt;&lt;/luster-checkbox&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>label</td><td>string</td><td>Checkbox label</td><td>''</td></tr>
+            <tr><td>checked</td><td>boolean</td><td>Checked state</td><td>false</td></tr>
+            <tr><td>indeterminate</td><td>boolean</td><td>Partial/indeterminate state</td><td>false</td></tr>
+            <tr><td>disabled</td><td>boolean</td><td>Disabled state</td><td>false</td></tr>
+            <tr><td>value</td><td>string</td><td>Form value</td><td>''</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── TOGGLE ── -->
+    <section id="toggle" class="comp-section">
+      <h2 class="comp-title">Toggle</h2>
+      <p class="comp-desc">On/off switch for settings and preference controls.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-toggle label="Notifications"></luster-toggle>
+          <luster-toggle label="Dark mode" checked></luster-toggle>
+          <luster-toggle label="Disabled" disabled></luster-toggle>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('tgl-c', this)">Copy</button></div>
+        <pre><code id="tgl-c">&lt;luster-toggle label="Notifications"&gt;&lt;/luster-toggle&gt;
+&lt;luster-toggle label="Dark mode" checked&gt;&lt;/luster-toggle&gt;
+&lt;luster-toggle label="Disabled" disabled&gt;&lt;/luster-toggle&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>label</td><td>string</td><td>Toggle label</td><td>''</td></tr>
+            <tr><td>checked</td><td>boolean</td><td>On state</td><td>false</td></tr>
+            <tr><td>disabled</td><td>boolean</td><td>Disabled state</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── ALERT ── -->
+    <section id="alert" class="comp-section">
+      <p class="section-group-label">Feedback</p>
+      <h2 class="comp-title">Alert</h2>
+      <p class="comp-desc">Contextual messages for feedback, errors and status updates.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview col">
+          <luster-alert variant="info"    heading="Information"   message="Your account is currently under review."         dismissible></luster-alert>
+          <luster-alert variant="success" heading="Published!"    message="Your article is now live."                       dismissible></luster-alert>
+          <luster-alert variant="warning" heading="Unsaved changes" message="Leave the page? Your changes will be lost."    dismissible></luster-alert>
+          <luster-alert variant="error"   heading="Failed to save" message="Something went wrong. Please try again."        dismissible></luster-alert>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('alert-c', this)">Copy</button></div>
+        <pre><code id="alert-c">&lt;luster-alert
+  variant="info"
+  heading="Information"
+  message="Your account is currently under review."
+  dismissible
+&gt;&lt;/luster-alert&gt;
+
+&lt;luster-alert
+  variant="success"
+  heading="Published!"
+  message="Your article is now live."
+  dismissible
+&gt;&lt;/luster-alert&gt;
+
+&lt;luster-alert
+  variant="error"
+  heading="Failed to save"
+  message="Something went wrong. Please try again."
+  dismissible
+&gt;&lt;/luster-alert&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>variant</td><td>'info' | 'success' | 'warning' | 'error'</td><td>Alert type</td><td>'info'</td></tr>
+            <tr><td>heading</td><td>string</td><td>Bold title</td><td>''</td></tr>
+            <tr><td>message</td><td>string</td><td>Body text</td><td>''</td></tr>
+            <tr><td>dismissible</td><td>boolean</td><td>Shows close button</td><td>true</td></tr>
+            <tr><td>timestamp</td><td>string</td><td>Optional time label</td><td>''</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── MODAL ── -->
+    <section id="modal" class="comp-section">
+      <h2 class="comp-title">Modal</h2>
+      <p class="comp-desc">Dialog overlay with confirm / cancel actions. Controlled via the <code style="font-family:monospace;color:var(--dc-primary)">open</code> prop.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview center">
+          <luster-button variant="primary" id="openModal">Open modal</luster-button>
+          <luster-modal
+            id="demoModal"
+            heading="Delete article"
+            subtitle="This will permanently remove the article and all its revisions. This action cannot be undone."
+            confirm-label="Delete"
+            cancel-label="Cancel"
+            size="md"
+          ></luster-modal>
+        </div>
+        <div class="code-header"><span>HTML + JS</span><button class="copy-btn" onclick="copyCode('modal-c', this)">Copy</button></div>
+        <pre><code id="modal-c">&lt;luster-button variant="primary" id="openBtn"&gt;Open modal&lt;/luster-button&gt;
+
+&lt;luster-modal
+  id="myModal"
+  heading="Delete article"
+  subtitle="This action cannot be undone."
+  confirm-label="Delete"
+  cancel-label="Cancel"
+&gt;&lt;/luster-modal&gt;
+
+&lt;script&gt;
+  document.getElementById('openBtn').addEventListener('click', () => {
+    document.getElementById('myModal').open = true;
+  });
+&lt;/script&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>open</td><td>boolean</td><td>Controls visibility</td><td>false</td></tr>
+            <tr><td>heading</td><td>string</td><td>Dialog title</td><td>''</td></tr>
+            <tr><td>subtitle</td><td>string</td><td>Body / description</td><td>''</td></tr>
+            <tr><td>confirm-label</td><td>string</td><td>Confirm button text</td><td>'Proceed'</td></tr>
+            <tr><td>cancel-label</td><td>string</td><td>Cancel button text</td><td>'Cancel'</td></tr>
+            <tr><td>size</td><td>'sm' | 'md' | 'lg'</td><td>Dialog width</td><td>'md'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── ACCORDION ── -->
+    <section id="accordion" class="comp-section">
+      <h2 class="comp-title">Accordion</h2>
+      <p class="comp-desc">Collapsible panel. Accepts any slot content and an optional badge.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview col" style="max-width: 560px;">
+          <luster-accordion heading="What frameworks are supported?" subtitle="Compatibility">
+            <p style="color:var(--dc-on-surface-variant);font-size:.875rem;line-height:1.7">
+              Luster UI works in React, Vue, Angular, Svelte and plain HTML — no wrappers required.
+            </p>
+          </luster-accordion>
+          <luster-accordion heading="How does theming work?" badge="3 tokens" badge-variant="primary" expanded>
+            <p style="color:var(--dc-on-surface-variant);font-size:.875rem;line-height:1.7">
+              Override <code style="font-family:monospace;color:var(--dc-primary)">--dc-primary</code>, <code style="font-family:monospace;color:var(--dc-primary)">--dc-primary-dim</code> and <code style="font-family:monospace;color:var(--dc-primary)">--dc-on-primary</code>. All derived tokens update via <code style="font-family:monospace;color:var(--dc-primary)">color-mix()</code>.
+            </p>
+          </luster-accordion>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('acc-c', this)">Copy</button></div>
+        <pre><code id="acc-c">&lt;luster-accordion
+  heading="What frameworks are supported?"
+  subtitle="Compatibility"
+&gt;
+  &lt;p&gt;Works in React, Vue, Angular, Svelte and plain HTML.&lt;/p&gt;
+&lt;/luster-accordion&gt;
+
+&lt;luster-accordion
+  heading="How does theming work?"
+  badge="3 tokens"
+  badge-variant="primary"
+  expanded
+&gt;
+  &lt;p&gt;Override 3 CSS custom properties.&lt;/p&gt;
+&lt;/luster-accordion&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>heading</td><td>string</td><td>Panel title</td><td>''</td></tr>
+            <tr><td>subtitle</td><td>string</td><td>Secondary label</td><td>''</td></tr>
+            <tr><td>badge</td><td>string</td><td>Badge text</td><td>''</td></tr>
+            <tr><td>badge-variant</td><td>'primary' | 'default' | 'success' | 'beta'</td><td>Badge color</td><td>'default'</td></tr>
+            <tr><td>expanded</td><td>boolean</td><td>Open by default</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── CARD ── -->
+    <section id="card" class="comp-section">
+      <p class="section-group-label">Cards</p>
+      <h2 class="comp-title">Card</h2>
+      <p class="comp-desc">General-purpose container with 4 surface styles. Accepts any slot content.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-card variant="default" style="width:180px">
+            <p style="color:var(--dc-on-surface-variant);font-size:.875rem">Default</p>
+          </luster-card>
+          <luster-card variant="elevated" style="width:180px">
+            <p style="color:var(--dc-on-surface-variant);font-size:.875rem">Elevated</p>
+          </luster-card>
+          <luster-card variant="glass" style="width:180px">
+            <p style="color:var(--dc-on-surface-variant);font-size:.875rem">Glass</p>
+          </luster-card>
+          <luster-card variant="feature" style="width:180px">
+            <p style="color:var(--dc-on-surface-variant);font-size:.875rem">Feature</p>
+          </luster-card>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('card-c', this)">Copy</button></div>
+        <pre><code id="card-c">&lt;luster-card variant="default"&gt;
+  &lt;p&gt;Default card&lt;/p&gt;
+&lt;/luster-card&gt;
+
+&lt;luster-card variant="elevated"&gt;
+  &lt;p&gt;Elevated — shadow lift&lt;/p&gt;
+&lt;/luster-card&gt;
+
+&lt;luster-card variant="glass"&gt;
+  &lt;p&gt;Glass — blur backdrop&lt;/p&gt;
+&lt;/luster-card&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>variant</td><td>'default' | 'elevated' | 'glass' | 'feature'</td><td>Surface style</td><td>'default'</td></tr>
+            <tr><td>padding</td><td>'sm' | 'md' | 'lg' | 'none'</td><td>Inner padding</td><td>'md'</td></tr>
+            <tr><td>hoverable</td><td>boolean</td><td>Hover lift effect</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── ARTICLE CARD ── -->
+    <section id="article-card" class="comp-section">
+      <h2 class="comp-title">Article Card</h2>
+      <p class="comp-desc">Editorial content card with category, author, date and featured layout.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview" style="align-items:stretch;gap:var(--dc-space-5)">
+          <luster-article-card
+            category="Design Systems"
+            heading="Building accessible color palettes"
+            excerpt="A practical guide to creating color tokens that work across light and dark modes."
+            date="Apr 2026"
+            author="Yasmim Vieira"
+            author-role="Design Engineer"
+            style="max-width:320px"
+          ></luster-article-card>
+          <luster-article-card
+            category="Web Components"
+            heading="Why Web Components for design systems"
+            excerpt="Framework-agnostic and future-proof — the case for the platform."
+            date="Mar 2026"
+            author="Yasmim Vieira"
+            featured
+            style="max-width:320px"
+          ></luster-article-card>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('artcard-c', this)">Copy</button></div>
+        <pre><code id="artcard-c">&lt;luster-article-card
+  category="Design Systems"
+  heading="Building accessible color palettes"
+  excerpt="A practical guide to creating color tokens."
+  date="Apr 2026"
+  author="Yasmim Vieira"
+  author-role="Design Engineer"
+&gt;&lt;/luster-article-card&gt;
+
+&lt;!-- Featured variant --&gt;
+&lt;luster-article-card
+  category="Web Components"
+  heading="Why Web Components for design systems"
+  excerpt="Framework-agnostic and future-proof."
+  featured
+&gt;&lt;/luster-article-card&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>category</td><td>string</td><td>Topic label</td><td>''</td></tr>
+            <tr><td>heading</td><td>string</td><td>Article title</td><td>''</td></tr>
+            <tr><td>excerpt</td><td>string</td><td>Short description</td><td>''</td></tr>
+            <tr><td>date</td><td>string</td><td>Publication date</td><td>''</td></tr>
+            <tr><td>author</td><td>string</td><td>Author name</td><td>''</td></tr>
+            <tr><td>author-role</td><td>string</td><td>Author role/title</td><td>''</td></tr>
+            <tr><td>image-url</td><td>string</td><td>Cover image URL</td><td>''</td></tr>
+            <tr><td>featured</td><td>boolean</td><td>Hero / featured layout</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── PROFILE CARD ── -->
+    <section id="profile-card" class="comp-section">
+      <h2 class="comp-title">Profile Card</h2>
+      <p class="comp-desc">Author / user card with stats and a call-to-action button.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview center">
+          <luster-profile-card
+            name="Yasmim Vieira"
+            role="Design Engineer"
+            stat1-value="48"
+            stat1-label="Articles"
+            stat2-value="12.4k"
+            stat2-label="Readers"
+            cta-label="View Portfolio"
+            style="max-width:320px"
+          ></luster-profile-card>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('prof-c', this)">Copy</button></div>
+        <pre><code id="prof-c">&lt;luster-profile-card
+  name="Yasmim Vieira"
+  role="Design Engineer"
+  stat1-value="48"
+  stat1-label="Articles"
+  stat2-value="12.4k"
+  stat2-label="Readers"
+  cta-label="View Portfolio"
+&gt;&lt;/luster-profile-card&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>name</td><td>string</td><td>Display name</td><td>''</td></tr>
+            <tr><td>role</td><td>string</td><td>Job title / role</td><td>''</td></tr>
+            <tr><td>avatar</td><td>string</td><td>Avatar image URL</td><td>''</td></tr>
+            <tr><td>stat1-value</td><td>string</td><td>First stat number</td><td>''</td></tr>
+            <tr><td>stat1-label</td><td>string</td><td>First stat label</td><td>''</td></tr>
+            <tr><td>stat2-value</td><td>string</td><td>Second stat number</td><td>''</td></tr>
+            <tr><td>stat2-label</td><td>string</td><td>Second stat label</td><td>''</td></tr>
+            <tr><td>cta-label</td><td>string</td><td>CTA button text</td><td>'View Portfolio'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── STAT CARD ── -->
+    <section id="stat-card" class="comp-section">
+      <h2 class="comp-title">Stat Card</h2>
+      <p class="comp-desc">Dashboard metric card with status, user count and optional toggle.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview">
+          <luster-stat-card
+            heading="Analytics Engine"
+            description="Real-time event processing"
+            version="v3.1"
+            status="active"
+            users="8.2k"
+            has-toggle
+            toggle-on
+          ></luster-stat-card>
+          <luster-stat-card
+            heading="Search Index"
+            description="Full-text search with fuzzy matching"
+            version="v1.4"
+            status="beta"
+            users="430"
+            has-toggle
+          ></luster-stat-card>
+          <luster-stat-card
+            heading="Legacy API"
+            description="Deprecated REST endpoints"
+            version="v0.9"
+            status="deprecated"
+            users="12"
+          ></luster-stat-card>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('stat-c', this)">Copy</button></div>
+        <pre><code id="stat-c">&lt;luster-stat-card
+  heading="Analytics Engine"
+  description="Real-time event processing"
+  version="v3.1"
+  status="active"
+  users="8.2k"
+  has-toggle
+  toggle-on
+&gt;&lt;/luster-stat-card&gt;
+
+&lt;luster-stat-card
+  heading="Search Index"
+  status="beta"
+  users="430"
+  has-toggle
+&gt;&lt;/luster-stat-card&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>heading</td><td>string</td><td>Card title</td><td>''</td></tr>
+            <tr><td>description</td><td>string</td><td>Short description</td><td>''</td></tr>
+            <tr><td>version</td><td>string</td><td>Version string</td><td>''</td></tr>
+            <tr><td>status</td><td>'active' | 'beta' | 'deprecated'</td><td>Status badge</td><td>'active'</td></tr>
+            <tr><td>users</td><td>string</td><td>User count label</td><td>''</td></tr>
+            <tr><td>has-toggle</td><td>boolean</td><td>Shows toggle control</td><td>false</td></tr>
+            <tr><td>toggle-on</td><td>boolean</td><td>Toggle initial state</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── FEATURE QUOTE ── -->
+    <section id="feature-quote" class="comp-section">
+      <h2 class="comp-title">Feature Quote</h2>
+      <p class="comp-desc">Pull quote for testimonials and editorial highlights.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview col">
+          <luster-feature-quote
+            quote="Design systems are about the relationships between components, not just the components themselves."
+            author="Yasmim Vieira"
+            role="Design Engineer"
+          ></luster-feature-quote>
+          <luster-feature-quote
+            variant="large"
+            quote="Good design is obvious. Great design is transparent."
+            author="Joe Sparano"
+            role="Designer"
+          ></luster-feature-quote>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('fq-c', this)">Copy</button></div>
+        <pre><code id="fq-c">&lt;luster-feature-quote
+  quote="Design systems are about the relationships between components."
+  author="Yasmim Vieira"
+  role="Design Engineer"
+&gt;&lt;/luster-feature-quote&gt;
+
+&lt;!-- Large variant --&gt;
+&lt;luster-feature-quote
+  variant="large"
+  quote="Good design is obvious. Great design is transparent."
+  author="Joe Sparano"
+  role="Designer"
+&gt;&lt;/luster-feature-quote&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>quote</td><td>string</td><td>Quote text</td><td>''</td></tr>
+            <tr><td>author</td><td>string</td><td>Author name</td><td>''</td></tr>
+            <tr><td>role</td><td>string</td><td>Author role / title</td><td>''</td></tr>
+            <tr><td>variant</td><td>'default' | 'large' | 'inline'</td><td>Layout variant</td><td>'default'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── NAVBAR ── -->
+    <section id="navbar" class="comp-section">
+      <p class="section-group-label">Navigation</p>
+      <h2 class="comp-title">Navbar</h2>
+      <p class="comp-desc">Top navigation bar with glass backdrop, logo, links and search.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview fill">
+          <luster-navbar logo-title="My App" logo-sub="PLATFORM" active-link="explorer" style="display:block"></luster-navbar>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('nav-c', this)">Copy</button></div>
+        <pre><code id="nav-c">&lt;luster-navbar
+  logo-title="My App"
+  logo-sub="PLATFORM"
+  active-link="explorer"
+&gt;&lt;/luster-navbar&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>logo-title</td><td>string</td><td>Brand name</td><td>'The Digital Curator'</td></tr>
+            <tr><td>logo-sub</td><td>string</td><td>Brand subtitle</td><td>'EDITORIAL SYSTEM'</td></tr>
+            <tr><td>active-link</td><td>string</td><td>Active nav item key</td><td>'explorer'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── SIDEBAR ── -->
+    <section id="sidebar-comp" class="comp-section">
+      <h2 class="comp-title">Sidebar</h2>
+      <p class="comp-desc">Vertical navigation panel with grouped links and icon support.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview fill" style="height:320px;overflow:hidden;">
+          <luster-sidebar active="foundations" style="height:100%;display:block"></luster-sidebar>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('sb-c', this)">Copy</button></div>
+        <pre><code id="sb-c">&lt;luster-sidebar active="foundations"&gt;&lt;/luster-sidebar&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>active</td><td>string</td><td>Active section key</td><td>'foundations'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── TABS ── -->
+    <section id="tabs" class="comp-section">
+      <h2 class="comp-title">Tabs</h2>
+      <p class="comp-desc">Tabbed navigation with named slot panels. Tab definitions are passed as JSON.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview col fill" style="padding:var(--dc-space-6)">
+          <luster-tabs
+            tabs='[{"id":"overview","label":"Overview"},{"id":"api","label":"API Reference"},{"id":"examples","label":"Examples"}]'
+            active="overview"
+          >
+            <div slot="tab-overview" style="padding:var(--dc-space-4);color:var(--dc-on-surface-variant);font-size:.875rem">Overview content goes here.</div>
+            <div slot="tab-api"      style="padding:var(--dc-space-4);color:var(--dc-on-surface-variant);font-size:.875rem">API reference content.</div>
+            <div slot="tab-examples" style="padding:var(--dc-space-4);color:var(--dc-on-surface-variant);font-size:.875rem">Code examples here.</div>
+          </luster-tabs>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('tabs-c', this)">Copy</button></div>
+        <pre><code id="tabs-c">&lt;luster-tabs
+  tabs='[{"id":"overview","label":"Overview"},{"id":"api","label":"API Reference"}]'
+  active="overview"
+&gt;
+  &lt;div slot="tab-overview"&gt;Overview content&lt;/div&gt;
+  &lt;div slot="tab-api"&gt;API Reference content&lt;/div&gt;
+&lt;/luster-tabs&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>tabs</td><td>JSON string: [{id, label}]</td><td>Tab definitions</td><td>''</td></tr>
+            <tr><td>active</td><td>string</td><td>Active tab id</td><td>''</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── RESOURCE TABLE ── -->
+    <section id="resource-table" class="comp-section">
+      <p class="section-group-label">Data</p>
+      <h2 class="comp-title">Resource Table</h2>
+      <p class="comp-desc">Data table for resources with score bars, status badges and row actions.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview fill">
+          <luster-resource-table
+            rows='[{"name":"Design Tokens","category":"Foundations","score":98,"status":"active"},{"name":"Button System","category":"Components","score":87,"status":"active"},{"name":"Legacy Forms","category":"Deprecated","score":34,"status":"deprecated"}]'
+            section-label="System Components"
+            style="display:block"
+          ></luster-resource-table>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('rt-c', this)">Copy</button></div>
+        <pre><code id="rt-c">&lt;luster-resource-table
+  section-label="System Components"
+  rows='[
+    {"name":"Design Tokens","category":"Foundations","score":98,"status":"active"},
+    {"name":"Button System","category":"Components","score":87,"status":"active"},
+    {"name":"Legacy Forms","category":"Deprecated","score":34,"status":"deprecated"}
+  ]'
+&gt;&lt;/luster-resource-table&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── ACTIVITY ITEM ── -->
+    <section id="activity-item" class="comp-section">
+      <h2 class="comp-title">Activity Item</h2>
+      <p class="comp-desc">Feed row for activity logs and file change notifications. Two layout variants.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview col">
+          <luster-activity-item label="Updated design tokens"  description="Changed primary color to emerald" time="2 min ago" variant="activity" icon="edit"></luster-activity-item>
+          <luster-activity-item label="design-tokens.json"    description="Updated 14 tokens"               time="5 min ago" variant="file"     file-size="4.2 KB" downloadable></luster-activity-item>
+          <luster-activity-item label="Published article"     description="'Building accessible palettes' is now live" time="1h ago" variant="activity" icon="publish"></luster-activity-item>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('ai-c', this)">Copy</button></div>
+        <pre><code id="ai-c">&lt;!-- Activity variant --&gt;
+&lt;luster-activity-item
+  label="Updated design tokens"
+  description="Changed primary color"
+  time="2 min ago"
+  variant="activity"
+  icon="edit"
+&gt;&lt;/luster-activity-item&gt;
+
+&lt;!-- File variant --&gt;
+&lt;luster-activity-item
+  label="design-tokens.json"
+  description="Updated 14 tokens"
+  time="5 min ago"
+  variant="file"
+  file-size="4.2 KB"
+  downloadable
+&gt;&lt;/luster-activity-item&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>label</td><td>string</td><td>Primary text</td><td>''</td></tr>
+            <tr><td>description</td><td>string</td><td>Secondary text</td><td>''</td></tr>
+            <tr><td>time</td><td>string</td><td>Relative timestamp</td><td>''</td></tr>
+            <tr><td>variant</td><td>'activity' | 'file'</td><td>Item type</td><td>'activity'</td></tr>
+            <tr><td>icon</td><td>string</td><td>Icon name (activity variant)</td><td>'edit'</td></tr>
+            <tr><td>file-size</td><td>string</td><td>File size label (file variant)</td><td>''</td></tr>
+            <tr><td>downloadable</td><td>boolean</td><td>Shows download button</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── HERO ── -->
+    <section id="hero" class="comp-section">
+      <p class="section-group-label">Layout</p>
+      <h2 class="comp-title">Hero</h2>
+      <p class="comp-desc">Full-width section header with animated glows and optional parallax image.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview fill">
+          <luster-hero
+            heading="Editorial stories, beautifully organized"
+            subtitle="Discover and explore content from the world's most interesting writers."
+            section="EXPLORE"
+            style="display:block"
+          ></luster-hero>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('hero-c', this)">Copy</button></div>
+        <pre><code id="hero-c">&lt;luster-hero
+  heading="Editorial stories, beautifully organized"
+  subtitle="Discover and explore content from the world's best writers."
+  section="EXPLORE"
+&gt;&lt;/luster-hero&gt;
+
+&lt;!-- With image + parallax --&gt;
+&lt;luster-hero
+  heading="Your headline here"
+  subtitle="Supporting text."
+  section="HOME"
+  image-url="https://example.com/cover.jpg"
+  parallax
+&gt;&lt;/luster-hero&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>heading</td><td>string</td><td>Main headline</td><td>''</td></tr>
+            <tr><td>subtitle</td><td>string</td><td>Supporting text</td><td>''</td></tr>
+            <tr><td>section</td><td>string</td><td>Eyebrow label (uppercase)</td><td>''</td></tr>
+            <tr><td>image-url</td><td>string</td><td>Background image</td><td>''</td></tr>
+            <tr><td>parallax</td><td>boolean</td><td>Parallax scroll effect</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── COLOR SWATCH ── -->
+    <section id="color-swatch" class="comp-section">
+      <h2 class="comp-title">Color Swatch</h2>
+      <p class="comp-desc">Visual token reference for design system documentation and palette display.</p>
+
+      <div class="demo-block">
+        <div class="demo-preview" style="flex-wrap:wrap">
+          <luster-color-swatch color="#a3a6ff" name="Primary"     hex="#a3a6ff"></luster-color-swatch>
+          <luster-color-swatch color="#6063ee" name="Primary Dim" hex="#6063ee"></luster-color-swatch>
+          <luster-color-swatch color="#4cceac" name="Success"     hex="#4cceac"></luster-color-swatch>
+          <luster-color-swatch color="#ffd166" name="Warning"     hex="#ffd166"></luster-color-swatch>
+          <luster-color-swatch color="#ffb4ab" name="Error"       hex="#ffb4ab"></luster-color-swatch>
+          <luster-color-swatch color="#b6aee4" name="Secondary"   hex="#b6aee4"></luster-color-swatch>
+        </div>
+        <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode('swatch-c', this)">Copy</button></div>
+        <pre><code id="swatch-c">&lt;luster-color-swatch
+  color="#a3a6ff"
+  name="Primary"
+  hex="#a3a6ff"
+&gt;&lt;/luster-color-swatch&gt;</code></pre>
+      </div>
+
+      <div class="props-wrap">
+        <table class="props-table">
+          <thead><tr><th>Prop</th><th>Type</th><th>Description</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>color</td><td>string</td><td>CSS color (hex, rgb, var)</td><td>'#a3a6ff'</td></tr>
+            <tr><td>name</td><td>string</td><td>Token display name</td><td>''</td></tr>
+            <tr><td>hex</td><td>string</td><td>Hex value shown below swatch</td><td>''</td></tr>
+            <tr><td>size</td><td>'sm' | 'md' | 'lg'</td><td>Swatch size</td><td>'md'</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── THEMING ── -->
+    <section id="theming" class="comp-section">
+      <p class="section-group-label">Theming</p>
+      <h2 class="comp-title">Any-color theming</h2>
+      <p class="comp-desc">Override three CSS custom properties to fully rebrand all components. All derived tokens — hover tints, shadows, focus rings, gradients — cascade automatically via <code style="font-family:monospace;color:var(--dc-primary)">color-mix()</code>.</p>
+
+      <div class="demo-block">
+        <div class="code-header"><span>Minimal brand override</span><button class="copy-btn" onclick="copyCode('theme-min', this)">Copy</button></div>
+        <pre><code id="theme-min">:root {
+  --dc-primary:     #f97316;  /* your brand color      */
+  --dc-primary-dim: #ea580c;  /* darker shade           */
+  --dc-on-primary:  #ffffff;  /* text/icon on primary   */
+}</code></pre>
+      </div>
+
+      <div class="demo-block">
+        <div class="code-header"><span>Brand examples</span><button class="copy-btn" onclick="copyCode('theme-ex', this)">Copy</button></div>
+        <pre><code id="theme-ex">/* Emerald */
+:root { --dc-primary: #10b981; --dc-primary-dim: #059669; --dc-on-primary: #ffffff; }
+
+/* Rose */
+:root { --dc-primary: #f43f5e; --dc-primary-dim: #e11d48; --dc-on-primary: #ffffff; }
+
+/* Gold (dark text — amber is light) */
+:root { --dc-primary: #f59e0b; --dc-primary-dim: #d97706; --dc-on-primary: #1c1200; }
+
+/* Sky blue */
+:root { --dc-primary: #0ea5e9; --dc-primary-dim: #0284c7; --dc-on-primary: #ffffff; }</code></pre>
+      </div>
+
+      <div class="demo-block">
+        <div class="code-header"><span>Dark / light mode toggle</span><button class="copy-btn" onclick="copyCode('theme-mode', this)">Copy</button></div>
+        <pre><code id="theme-mode">// Switch to light
+document.documentElement.setAttribute('data-theme', 'light');
+
+// Switch to dark
+document.documentElement.setAttribute('data-theme', 'dark');
+
+// Persist preference
+localStorage.setItem('theme', 'light');
+
+// Auto — let OS handle it (no JS needed)
+// @media (prefers-color-scheme: light) is already active</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Luster UI — MIT License</span>
+  <span>
+    Built with <a href="https://stenciljs.com" target="_blank">Stencil</a> ·
+    <a href="https://github.com/YasmimVieira/digital-curator-ds" target="_blank">GitHub</a> ·
+    <a href="https://www.npmjs.com/package/@yvstudio/luster-ui" target="_blank">npm</a>
+  </span>
+</footer>
+
+<!-- Components — served from /dist/ (copied during build, see vercel.json) -->
+<script type="module" src="./dist/luster.esm.js"></script>
+
+<script>
+  // ── Theme toggle ──────────────────────────────────────────────
+  const html      = document.documentElement;
+  const themeBtn  = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const themeLabel= document.getElementById('themeLabel');
+
+  const saved = localStorage.getItem('luster-theme') || 'dark';
+  applyTheme(saved);
+
+  themeBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('luster-theme', next);
+  });
+
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    themeIcon.textContent  = t === 'dark' ? '☀' : '☾';
+    themeLabel.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+  }
+
+  // ── Copy helpers ──────────────────────────────────────────────
+  function copyCode(id, btn) {
+    const el = document.getElementById(id);
+    copyText(el ? el.textContent.trim() : '', btn);
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // ── Modal demo ────────────────────────────────────────────────
+  document.getElementById('openModal').addEventListener('click', () => {
+    document.getElementById('demoModal').open = true;
+  });
+
+  // ── Active sidebar highlight on scroll ───────────────────────
+  const sections = document.querySelectorAll('.comp-section[id]');
+  const navLinks  = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-60px 0px -72% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
