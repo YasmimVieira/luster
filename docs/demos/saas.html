@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../dist/luster.css">
   <style>
     :root {
       color-scheme: dark;
@@ -60,25 +61,30 @@
       line-height: 1.6;
     }
 
-    /* Back bar */
-    .back-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 36px;
-      display: flex; align-items: center; gap: 12px;
-      padding: 0 24px;
-      background: color-mix(in srgb, var(--dc-primary) 12%, transparent);
-      border-bottom: 1px solid color-mix(in srgb, var(--dc-primary) 20%, transparent);
-      font-size: 0.75rem;
-    }
-    .back-bar a {
-      color: var(--dc-primary); text-decoration: none; font-weight: 600;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .back-bar a:hover { text-decoration: underline; }
-    .back-bar span { color: var(--dc-on-surface-variant); }
-
-    body { padding-top: 36px; }
+    body { padding-top: 60px; }
     luster-navbar { display: block; }
+
+    /* Floating back button */
+    .back-btn {
+      position: fixed; bottom: 80px; left: 20px; z-index: 99;
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      background: var(--dc-surface-bright);
+      border: 1px solid var(--dc-border-default);
+      border-radius: 9999px;
+      color: var(--dc-on-surface-variant);
+      font-size: 0.75rem; font-weight: 600;
+      font-family: var(--dc-font-body);
+      text-decoration: none;
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--dc-primary-dim) 15%, transparent);
+      transition: all 150ms ease;
+      white-space: nowrap;
+    }
+    .back-btn:hover {
+      color: var(--dc-primary);
+      border-color: color-mix(in srgb, var(--dc-primary) 40%, transparent);
+      text-decoration: none;
+    }
 
     /* Layout */
     .section { padding: 80px 24px; }
@@ -248,11 +254,7 @@
 </head>
 <body>
 
-<!-- Back to docs -->
-<div class="back-bar">
-  <a href="../index.html">← Back to docs</a>
-  <span>Demo — SaaS Platform</span>
-</div>
+<a href="../index.html" class="back-btn">← Docs</a>
 
 <!-- Navbar -->
 <luster-navbar logo-title="DataFlow" logo-sub="ANALYTICS" active-link="dashboard"></luster-navbar>
