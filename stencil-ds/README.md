@@ -1,4 +1,4 @@
-# @luster/ui
+# @yvstudio/luster-ui
 
 **Luster** is an editorial-first Web Components design system built with [Stencil.js](https://stenciljs.com/). It ships framework-agnostic components that work in any HTML page, React, Vue, Angular, or plain JavaScript — no build step required on the consumer side.
 
@@ -8,7 +8,7 @@
 
 - [Quick start](#quick-start)
 - [Using in a project](#using-in-a-project)
-- [Component comparison: vanilla CSS vs @luster/ui](#component-comparison-vanilla-css-vs-lusterui)
+- [Component comparison: vanilla CSS vs @yvstudio/luster-ui](#component-comparison-vanilla-css-vs-lusterui)
 - [All components](#all-components)
 - [Design tokens](#design-tokens)
 - [Storybook](#storybook)
@@ -23,7 +23,7 @@
 
 ```html
 <head>
-  <script type="module" src="https://unpkg.com/@luster/ui/dist/luster/luster.esm.js"></script>
+  <script type="module" src="https://unpkg.com/@yvstudio/luster-ui/dist/luster/luster.esm.js"></script>
 </head>
 
 <body>
@@ -34,11 +34,11 @@
 ### Via npm
 
 ```bash
-npm install @luster/ui
+npm install @yvstudio/luster-ui
 ```
 
 ```js
-import { defineCustomElements } from '@luster/ui/loader';
+import { defineCustomElements } from '@yvstudio/luster-ui/loader';
 defineCustomElements();
 ```
 
@@ -52,7 +52,7 @@ defineCustomElements();
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="module" src="node_modules/@luster/ui/dist/luster/luster.esm.js"></script>
+  <script type="module" src="node_modules/@yvstudio/luster-ui/dist/luster/luster.esm.js"></script>
   <!-- or from CDN -->
 </head>
 <body>
@@ -66,7 +66,7 @@ defineCustomElements();
 ### React
 
 ```tsx
-import { defineCustomElements } from '@luster/ui/loader';
+import { defineCustomElements } from '@yvstudio/luster-ui/loader';
 defineCustomElements();
 
 export function MyPage() {
@@ -82,7 +82,7 @@ export function MyPage() {
 
 ```vue
 <script setup>
-import { defineCustomElements } from '@luster/ui/loader';
+import { defineCustomElements } from '@yvstudio/luster-ui/loader';
 defineCustomElements();
 </script>
 
@@ -97,7 +97,7 @@ In `app.module.ts`:
 
 ```ts
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { defineCustomElements } from '@luster/ui/loader';
+import { defineCustomElements } from '@yvstudio/luster-ui/loader';
 
 defineCustomElements();
 
@@ -109,9 +109,9 @@ export class AppModule {}
 
 ---
 
-## Component comparison: vanilla CSS vs @luster/ui
+## Component comparison: vanilla CSS vs @yvstudio/luster-ui
 
-The example below builds the same **article card** two ways — raw HTML + CSS and then with `@luster/ui`.
+The example below builds the same **article card** two ways — raw HTML + CSS and then with `@yvstudio/luster-ui`.
 
 ### With vanilla HTML + CSS
 
@@ -211,11 +211,11 @@ The example below builds the same **article card** two ways — raw HTML + CSS a
 
 ---
 
-### With @luster/ui
+### With @yvstudio/luster-ui
 
 ```html
 <!-- index.html -->
-<script type="module" src="https://unpkg.com/@luster/ui/dist/luster/luster.esm.js"></script>
+<script type="module" src="https://unpkg.com/@yvstudio/luster-ui/dist/luster/luster.esm.js"></script>
 
 <luster-article-card
   category="Design"
@@ -231,7 +231,7 @@ The example below builds the same **article card** two ways — raw HTML + CSS a
 
 #### What you gain
 
-| | Vanilla CSS | @luster/ui |
+| | Vanilla CSS | @yvstudio/luster-ui |
 |---|---|---|
 | Lines of code | ~85 | ~9 |
 | Hover / focus states | Write yourself | Built-in |
@@ -370,7 +370,7 @@ npm publish --access public
 After publishing, consumers install with:
 
 ```bash
-npm install @luster/ui
+npm install @yvstudio/luster-ui
 ```
 
 ---

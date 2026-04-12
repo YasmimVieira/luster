@@ -1,41 +1,43 @@
 {
-  "name": "@luster/ui",
+  "name": "@luster-ui/ui",
   "version": "1.0.0",
-  "description": "The Digital Curator Design System — editorial-first Web Components built with Stencil.js",
+  "description": "Editorial-first Web Components design system — 20 components, dark/light mode, any brand color",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
-  "es2015": "dist/esm/index.mjs",
-  "es2017": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
+  "es2015": "dist/esm/index.js",
+  "es2017": "dist/esm/index.js",
+  "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/luster/luster.esm.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs.js",
-      "types": "./dist/types/index.d.ts"
+      "types":   "./dist/types/components.d.ts",
+      "import":  "./dist/index.js",
+      "require": "./dist/index.cjs.js"
     },
     "./loader": {
-      "import": "./loader/index.js",
-      "require": "./loader/index.cjs.js",
-      "types": "./loader/index.d.ts"
+      "types":   "./loader/index.d.ts",
+      "import":  "./loader/index.js",
+      "require": "./loader/index.cjs.js"
     },
     "./dist/luster/luster.esm.js": "./dist/luster/luster.esm.js",
-    "./dist/luster/luster.js": "./dist/luster/luster.js"
+    "./dist/luster/luster.js":     "./dist/luster/luster.js"
   },
   "files": [
     "dist/",
-    "loader/"
+    "loader/",
+    "README.md",
+    "PUBLISHING.md"
   ],
   "scripts": {
-    "build": "stencil build --docs",
-    "build:prod": "stencil build",
-    "start": "stencil build --dev --watch --serve",
-    "generate": "stencil generate",
-    "storybook": "storybook dev -p 6006",
+    "build":           "stencil build --docs",
+    "build:prod":      "stencil build",
+    "start":           "stencil build --dev --watch --serve",
+    "generate":        "stencil generate",
+    "storybook":       "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "prepublishOnly": "npm run build:prod"
+    "prepublishOnly":  "npm run build:prod"
   },
   "keywords": [
     "design-system",
@@ -43,22 +45,29 @@
     "stencil",
     "editorial",
     "dark-mode",
-    "ui-components"
+    "light-mode",
+    "theming",
+    "ui-components",
+    "luster"
   ],
-  "devDependencies": {
-    "@stencil/core": "^4.22.0",
-    "@storybook/addon-a11y": "^8.6.18",
-    "@storybook/addon-essentials": "^8.6.14",
-    "@storybook/web-components-vite": "^8.6.18",
-    "lit": "^3.3.2",
-    "typescript": "^5.4.5"
+  "engines": {
+    "node": ">=18"
   },
-  "peerDependencies": {
-    "@stencil/core": "^4.22.0"
+  "devDependencies": {
+    "@stencil/core":                  "^4.22.0",
+    "@storybook/addon-a11y":          "^8.6.18",
+    "@storybook/addon-essentials":    "^8.6.14",
+    "@storybook/web-components-vite": "^8.6.18",
+    "lit":                            "^3.3.2",
+    "typescript":                     "^5.4.5"
   },
   "license": "MIT",
+  "homepage": "https://github.com/YasmimVieira/digital-curator-ds#readme",
+  "bugs": {
+    "url": "https://github.com/YasmimVieira/digital-curator-ds/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YasmimVieira/digital-curator-ds"
+    "url":  "https://github.com/YasmimVieira/digital-curator-ds"
   }
 }
