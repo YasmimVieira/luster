@@ -316,12 +316,112 @@
       color: var(--dc-on-surface-variant); font-size: var(--dc-body-sm);
     }
     .site-footer a { color: var(--dc-primary); }
+
+    /* ── HAMBURGER ───────────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      width: 36px; height: 36px;
+      padding: var(--dc-space-2);
+      background: none;
+      border: 1px solid var(--dc-border-default);
+      border-radius: var(--dc-round-2);
+      cursor: pointer; flex-shrink: 0;
+      transition: background var(--dc-transition-fast);
+    }
+    .hamburger:hover { background: var(--dc-hover-tint); }
+    .hamburger span {
+      display: block; height: 2px; width: 100%;
+      background: var(--dc-on-surface-variant);
+      border-radius: 2px;
+      transition: all var(--dc-transition-base);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── OVERLAY ─────────────────────────────────────────────── */
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 90;
+      background: color-mix(in srgb, var(--dc-surface) 70%, transparent);
+      backdrop-filter: blur(2px);
+    }
+    .sidebar-overlay.visible { display: block; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* Header */
+      .site-header { gap: var(--dc-space-3); padding: 0 var(--dc-space-4); }
+      .header-nav  { display: none; }
+      .hamburger   { display: flex; }
+      .theme-btn   { margin-left: auto; padding: var(--dc-space-2); }
+      #themeLabel  { display: none; }
+
+      /* Sidebar — slide-in drawer */
+      .sidebar {
+        top: 0; z-index: 95;
+        transform: translateX(-100%);
+        transition: transform var(--dc-transition-base);
+        padding-top: calc(60px + var(--dc-space-4));
+        box-shadow: none;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 40px color-mix(in srgb, var(--dc-surface) 60%, transparent);
+      }
+
+      /* Main */
+      .main-content {
+        margin-left: 0;
+        padding: var(--dc-space-8) var(--dc-space-4);
+        max-width: 100%;
+      }
+
+      /* Sections */
+      .comp-section { margin-bottom: var(--dc-space-12); }
+      .comp-section + .comp-section { padding-top: var(--dc-space-12); }
+      .comp-title { font-size: var(--dc-headline-sm); }
+      .page-intro h1 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+
+      /* Demo previews */
+      .demo-preview { padding: var(--dc-space-5); gap: var(--dc-space-3); }
+      .demo-preview.fill { padding: 0; }
+
+      /* Install row */
+      .install-row { flex-direction: column; align-items: flex-start; gap: var(--dc-space-2); width: 100%; }
+      .install-row code { font-size: var(--dc-body-sm); word-break: break-all; }
+
+      /* Props table — horizontal scroll */
+      .props-wrap { overflow-x: auto; }
+      .props-table { min-width: 540px; }
+
+      /* Footer */
+      .site-footer {
+        margin-left: 0;
+        flex-direction: column; gap: var(--dc-space-2);
+        text-align: center;
+        padding: var(--dc-space-6) var(--dc-space-4);
+      }
+    }
+
+    @media (max-width: 480px) {
+      pre { font-size: 0.72rem; padding: var(--dc-space-4); }
+      .code-header { padding: var(--dc-space-2) var(--dc-space-4); }
+      .demo-preview { padding: var(--dc-space-4); }
+    }
   </style>
 </head>
 <body>
 
+<!-- ── OVERLAY ─────────────────────────────────────────────── -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <!-- ── HEADER ──────────────────────────────────────────────── -->
 <header class="site-header">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
   <a href="#" class="logo">
     <div class="logo__mark">L</div>
     <div>
@@ -333,7 +433,7 @@
     <a href="#get-started">Get started</a>
     <a href="#button">Components</a>
     <a href="#theming">Theming</a>
-    <a href="https://github.com/YasmimVieira/luster" target="_blank">GitHub ↗</a>
+    <a href="https://github.com/YasmimVieira/digital-curator-ds" target="_blank">GitHub ↗</a>
     <span class="badge-version">v1.0.0</span>
   </nav>
   <button class="theme-btn" id="themeToggle">
@@ -1415,6 +1515,38 @@ localStorage.setItem('theme', 'light');
   }, { rootMargin: '-60px 0px -72% 0px', threshold: 0 });
 
   sections.forEach(s => observer.observe(s));
+
+  // ── Mobile sidebar toggle ─────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const sidebar   = document.querySelector('.sidebar');
+  const overlay   = document.getElementById('sidebarOverlay');
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('visible');
+    hamburger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('visible');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  });
+
+  overlay.addEventListener('click', closeSidebar);
+
+  // Close sidebar when a nav link is clicked on mobile
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) closeSidebar();
+    });
+  });
 </script>
 </body>
 </html>
