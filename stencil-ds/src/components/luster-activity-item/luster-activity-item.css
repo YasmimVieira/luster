@@ -7,13 +7,13 @@
   padding: var(--dc-space-3) 0;
 }
 
-.activity-item + .activity-item { border-top: 1px solid rgba(64, 72, 93, 0.12); }
+.activity-item + .activity-item { border-top: 1px solid var(--dc-divider); }
 
 .activity-item__icon {
   width: 28px;
   height: 28px;
   border-radius: var(--dc-round-full);
-  background: rgba(163, 166, 255, 0.1);
+  background: var(--dc-icon-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,7 @@
   width: 36px;
   height: 36px;
   border-radius: var(--dc-round-2);
-  background: rgba(163, 166, 255, 0.1);
+  background: var(--dc-icon-bg);
   display: flex;
   align-items: center;
   justify-content: center;

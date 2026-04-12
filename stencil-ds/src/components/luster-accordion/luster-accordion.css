@@ -25,7 +25,7 @@
   transition: background var(--dc-transition-fast);
 }
 
-.accordion__trigger:hover { background: rgba(163, 166, 255, 0.04); }
+.accordion__trigger:hover { background: var(--dc-hover-tint); }
 
 .accordion__trigger-left {
   display: flex;

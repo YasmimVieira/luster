@@ -21,7 +21,7 @@
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
-  box-shadow: 0 0 0 3px rgba(163, 166, 255, 0.2);
+  box-shadow: 0 0 0 3px var(--dc-focus-ring);
 }
 
 .profile-card__avatar-img {
@@ -63,8 +63,8 @@
   width: 100%;
   justify-content: center;
   padding: var(--dc-space-3) 0;
-  border-top: 1px solid rgba(64, 72, 93, 0.2);
-  border-bottom: 1px solid rgba(64, 72, 93, 0.2);
+  border-top: 1px solid var(--dc-border-faint);
+  border-bottom: 1px solid var(--dc-border-faint);
 }
 
 .profile-card__stat {

@@ -19,7 +19,7 @@
   width: 40px;
   height: 22px;
   border-radius: var(--dc-round-full);
-  background: rgba(64, 72, 93, 0.5);
+  background: var(--dc-border-strong);
   border: none;
   cursor: pointer;
   transition: background var(--dc-transition-base);

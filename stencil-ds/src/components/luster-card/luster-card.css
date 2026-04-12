@@ -15,13 +15,13 @@
 /* Variants */
 .card--default  { background: var(--dc-surface-container-high); }
 .card--elevated { background: var(--dc-surface-container-highest); box-shadow: var(--dc-shadow-md); }
-.card--feature  { background: var(--dc-surface-container-high); border: 1px solid rgba(64, 72, 93, 0.25); }
+.card--feature  { background: var(--dc-surface-container-high); border: 1px solid var(--dc-border-default); }
 
 .card--glass {
-  background: rgba(30, 46, 74, 0.55);
+  background: var(--dc-glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(64, 72, 93, 0.3);
+  border: 1px solid var(--dc-border-default);
 }
 
 /* Hoverable */

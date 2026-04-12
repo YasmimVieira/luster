@@ -24,7 +24,7 @@
 .hero__bg-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(6, 14, 32, 0.5);
+  background: var(--dc-overlay-surface);
 }
 
 .hero__bg-gradient {
@@ -32,21 +32,21 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(6, 14, 32, 0.9) 0%,
-    rgba(6, 14, 32, 0.3) 50%,
+    var(--dc-image-overlay-bottom) 0%,
+    var(--dc-image-overlay-top) 50%,
     transparent 100%
   );
 }
 
-/* Parallax star effect when no image */
+/* Parallax glow effect when no image */
 .hero--parallax .hero__bg::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 30%, rgba(163, 166, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 60%, rgba(96, 99, 238, 0.12) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 80%, rgba(182, 174, 228, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 30%, var(--dc-hero-glow-primary) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, var(--dc-hero-glow-dim) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 80%, var(--dc-hero-glow-secondary) 0%, transparent 40%),
     var(--dc-surface-container);
   z-index: 1;
 }
@@ -108,12 +108,12 @@
 .hero__layer-text {
   font-size: var(--dc-label-sm);
   font-weight: 600;
-  color: rgba(163, 166, 255, 0.7);
+  color: var(--dc-hero-badge-text);
   letter-spacing: var(--dc-tracking-wide);
 }
 
 .hero__layer-sub {
   font-size: 10px;
-  color: rgba(163, 166, 255, 0.4);
+  color: var(--dc-hero-badge-sub);
   font-family: monospace;
 }

@@ -14,7 +14,7 @@
   width: 18px;
   height: 18px;
   border-radius: var(--dc-round-1);
-  border: 1.5px solid rgba(64, 72, 93, 0.5);
+  border: 1.5px solid var(--dc-border-strong);
   background: var(--dc-surface-container-lowest);
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@
 
 .checkbox:hover .checkbox__box:not(.checkbox__box--checked) {
   border-color: var(--dc-primary);
-  background: rgba(163, 166, 255, 0.08);
+  background: var(--dc-hover-tint-strong);
 }
 
 .checkbox__label {

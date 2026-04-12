@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
+/* ═══════════════════════════════════════════════════════════════
+   DARK MODE — default
+═══════════════════════════════════════════════════════════════ */
 :root {
+  color-scheme: dark;
+
   /* === SURFACES === */
   --dc-surface:                   #060e20;
   --dc-surface-container-lowest:  #030914;
@@ -104,8 +109,350 @@
   --dc-transition-fast: 150ms ease;
   --dc-transition-base: 250ms ease;
   --dc-transition-slow: 400ms ease;
+
+  /* ─── ALPHA / OVERLAY TOKENS (dark mode) ──────────────────── */
+
+  /* Hover tints */
+  --dc-hover-tint:         rgba(163, 166, 255, 0.04);
+  --dc-hover-tint-md:      rgba(163, 166, 255, 0.06);
+  --dc-hover-tint-strong:  rgba(163, 166, 255, 0.08);
+  --dc-hover-tint-icon:    rgba(64, 72, 93, 0.15);
+  --dc-hover-tint-icon-md: rgba(64, 72, 93, 0.30);
+  --dc-icon-bg:            rgba(163, 166, 255, 0.10);
+
+  /* Borders */
+  --dc-divider:      rgba(64, 72, 93, 0.12);
+  --dc-border-faint: rgba(64, 72, 93, 0.20);
+  --dc-border-default: rgba(64, 72, 93, 0.30);
+  --dc-border-medium:  rgba(64, 72, 93, 0.35);
+  --dc-border-strong:  rgba(64, 72, 93, 0.50);
+  --dc-border-hover:   rgba(64, 72, 93, 0.80);
+
+  /* Overlay / glass */
+  --dc-glass-bg:         rgba(30, 46, 74, 0.55);
+  --dc-glass-nav:        rgba(30, 46, 74, 0.65);
+  --dc-glass-search:     rgba(64, 72, 93, 0.18);
+  --dc-overlay-surface:  rgba(6, 14, 32, 0.50);
+  --dc-overlay-modal:    rgba(6, 14, 32, 0.80);
+
+  /* Close / icon buttons */
+  --dc-close-bg:     rgba(64, 72, 93, 0.20);
+  --dc-close-hover:  rgba(64, 72, 93, 0.40);
+
+  /* Focus rings */
+  --dc-focus-ring:       rgba(163, 166, 255, 0.12);
+  --dc-focus-ring-hover: rgba(163, 166, 255, 0.40);
+  --dc-error-focus-ring: rgba(255, 180, 171, 0.10);
+
+  /* Destructive / error states */
+  --dc-error-border:        rgba(255, 180, 171, 0.30);
+  --dc-error-border-hover:  rgba(255, 180, 171, 0.60);
+  --dc-error-bg:            rgba(255, 180, 171, 0.10);
+
+  /* Primary button shadows & hover gradient */
+  --dc-btn-primary-shadow:       0 4px 20px rgba(96, 99, 238, 0.35);
+  --dc-btn-primary-shadow-hover: 0 6px 28px rgba(96, 99, 238, 0.50);
+  --dc-btn-primary-shadow-press: 0 2px 12px rgba(96, 99, 238, 0.30);
+  --dc-btn-primary-gradient-hover: linear-gradient(135deg, #b5b8ff 0%, #7476f5 100%);
+  --dc-spinner-border:            rgba(255, 255, 255, 0.30);
+
+  /* Image overlays */
+  --dc-image-overlay-top:    rgba(6, 14, 32, 0.10);
+  --dc-image-overlay-bottom: rgba(6, 14, 32, 0.70);
+
+  /* Hero parallax glows */
+  --dc-hero-glow-primary:   rgba(163, 166, 255, 0.15);
+  --dc-hero-glow-dim:       rgba(96, 99, 238, 0.12);
+  --dc-hero-glow-secondary: rgba(182, 174, 228, 0.08);
+  --dc-hero-badge-text:     rgba(163, 166, 255, 0.70);
+  --dc-hero-badge-sub:      rgba(163, 166, 255, 0.40);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT MODE — via attribute or OS preference
+   Priority: [data-theme="light"] > prefers-color-scheme
+   To force dark regardless of OS: set data-theme="dark"
+═══════════════════════════════════════════════════════════════ */
+@mixin light-tokens {
+  color-scheme: light;
+
+  --dc-surface:                   #f5f7ff;
+  --dc-surface-container-lowest:  #ffffff;
+  --dc-surface-container-low:     #eef0ff;
+  --dc-surface-container:         #e8eaff;
+  --dc-surface-container-high:    #e0e3ff;
+  --dc-surface-container-highest: #d8dbff;
+  --dc-surface-bright:            #ffffff;
+
+  --dc-primary:           #4547ce;
+  --dc-primary-dim:       #3234b0;
+  --dc-primary-fixed:     #eaeaff;
+  --dc-on-primary:        #ffffff;
+  --dc-primary-container: #eaeaff;
+
+  --dc-on-surface:         #0d0f2d;
+  --dc-on-surface-variant: #3f4263;
+
+  --dc-outline:         #6b6d8f;
+  --dc-outline-variant: #c4c5e0;
+
+  --dc-error:              #ba1a1a;
+  --dc-error-container:    #ffdad6;
+  --dc-on-error-container: #410002;
+
+  --dc-secondary:           #5b5898;
+  --dc-secondary-container: #e4e0ff;
+
+  --dc-tertiary: #7c4e69;
+
+  --dc-success:           #006c4c;
+  --dc-success-container: #94f7cb;
+  --dc-warning:           #7c5700;
+  --dc-warning-container: #ffdea1;
+
+  --dc-shadow-sm: 0 4px 24px 0 rgba(50, 52, 176, 0.06);
+  --dc-shadow-md: 0 8px 40px 0 rgba(50, 52, 176, 0.09);
+  --dc-shadow-lg: 0 16px 60px 0 rgba(50, 52, 176, 0.12);
+  --dc-shadow-xl: 0 24px 80px 0 rgba(50, 52, 176, 0.16);
+
+  /* Alpha / overlay tokens — light mode */
+  --dc-hover-tint:         rgba(69, 71, 206, 0.04);
+  --dc-hover-tint-md:      rgba(69, 71, 206, 0.06);
+  --dc-hover-tint-strong:  rgba(69, 71, 206, 0.08);
+  --dc-hover-tint-icon:    rgba(107, 109, 143, 0.10);
+  --dc-hover-tint-icon-md: rgba(107, 109, 143, 0.18);
+  --dc-icon-bg:            rgba(69, 71, 206, 0.10);
+
+  --dc-divider:        rgba(107, 109, 143, 0.12);
+  --dc-border-faint:   rgba(107, 109, 143, 0.20);
+  --dc-border-default: rgba(107, 109, 143, 0.28);
+  --dc-border-medium:  rgba(107, 109, 143, 0.30);
+  --dc-border-strong:  rgba(107, 109, 143, 0.40);
+  --dc-border-hover:   rgba(107, 109, 143, 0.70);
+
+  --dc-glass-bg:        rgba(232, 234, 255, 0.70);
+  --dc-glass-nav:       rgba(240, 241, 255, 0.85);
+  --dc-glass-search:    rgba(107, 109, 143, 0.08);
+  --dc-overlay-surface: rgba(13, 15, 45, 0.30);
+  --dc-overlay-modal:   rgba(13, 15, 45, 0.55);
+
+  --dc-close-bg:    rgba(107, 109, 143, 0.12);
+  --dc-close-hover: rgba(107, 109, 143, 0.22);
+
+  --dc-focus-ring:       rgba(69, 71, 206, 0.15);
+  --dc-focus-ring-hover: rgba(69, 71, 206, 0.30);
+  --dc-error-focus-ring: rgba(186, 26, 26, 0.12);
+
+  --dc-error-border:       rgba(186, 26, 26, 0.25);
+  --dc-error-border-hover: rgba(186, 26, 26, 0.50);
+  --dc-error-bg:           rgba(186, 26, 26, 0.08);
+
+  --dc-btn-primary-shadow:         0 4px 20px rgba(50, 52, 176, 0.25);
+  --dc-btn-primary-shadow-hover:   0 6px 28px rgba(50, 52, 176, 0.40);
+  --dc-btn-primary-shadow-press:   0 2px 12px rgba(50, 52, 176, 0.18);
+  --dc-btn-primary-gradient-hover: linear-gradient(135deg, #6a6cf5 0%, #4547ce 100%);
+  --dc-spinner-border:             rgba(0, 0, 0, 0.20);
+
+  --dc-image-overlay-top:    rgba(13, 15, 45, 0.05);
+  --dc-image-overlay-bottom: rgba(13, 15, 45, 0.60);
+
+  --dc-hero-glow-primary:   rgba(69, 71, 206, 0.12);
+  --dc-hero-glow-dim:       rgba(50, 52, 176, 0.08);
+  --dc-hero-glow-secondary: rgba(91, 88, 152, 0.06);
+  --dc-hero-badge-text:     rgba(69, 71, 206, 0.70);
+  --dc-hero-badge-sub:      rgba(69, 71, 206, 0.40);
+}
+
+/* Apply light tokens when OS prefers light AND no explicit data-theme="dark" */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --dc-surface:                   #f5f7ff;
+    --dc-surface-container-lowest:  #ffffff;
+    --dc-surface-container-low:     #eef0ff;
+    --dc-surface-container:         #e8eaff;
+    --dc-surface-container-high:    #e0e3ff;
+    --dc-surface-container-highest: #d8dbff;
+    --dc-surface-bright:            #ffffff;
+
+    --dc-primary:           #4547ce;
+    --dc-primary-dim:       #3234b0;
+    --dc-primary-fixed:     #eaeaff;
+    --dc-on-primary:        #ffffff;
+    --dc-primary-container: #eaeaff;
+
+    --dc-on-surface:         #0d0f2d;
+    --dc-on-surface-variant: #3f4263;
+
+    --dc-outline:         #6b6d8f;
+    --dc-outline-variant: #c4c5e0;
+
+    --dc-error:              #ba1a1a;
+    --dc-error-container:    #ffdad6;
+    --dc-on-error-container: #410002;
+
+    --dc-secondary:           #5b5898;
+    --dc-secondary-container: #e4e0ff;
+
+    --dc-tertiary: #7c4e69;
+
+    --dc-success:           #006c4c;
+    --dc-success-container: #94f7cb;
+    --dc-warning:           #7c5700;
+    --dc-warning-container: #ffdea1;
+
+    --dc-shadow-sm: 0 4px 24px 0 rgba(50, 52, 176, 0.06);
+    --dc-shadow-md: 0 8px 40px 0 rgba(50, 52, 176, 0.09);
+    --dc-shadow-lg: 0 16px 60px 0 rgba(50, 52, 176, 0.12);
+    --dc-shadow-xl: 0 24px 80px 0 rgba(50, 52, 176, 0.16);
+
+    --dc-hover-tint:         rgba(69, 71, 206, 0.04);
+    --dc-hover-tint-md:      rgba(69, 71, 206, 0.06);
+    --dc-hover-tint-strong:  rgba(69, 71, 206, 0.08);
+    --dc-hover-tint-icon:    rgba(107, 109, 143, 0.10);
+    --dc-hover-tint-icon-md: rgba(107, 109, 143, 0.18);
+    --dc-icon-bg:            rgba(69, 71, 206, 0.10);
+
+    --dc-divider:        rgba(107, 109, 143, 0.12);
+    --dc-border-faint:   rgba(107, 109, 143, 0.20);
+    --dc-border-default: rgba(107, 109, 143, 0.28);
+    --dc-border-medium:  rgba(107, 109, 143, 0.30);
+    --dc-border-strong:  rgba(107, 109, 143, 0.40);
+    --dc-border-hover:   rgba(107, 109, 143, 0.70);
+
+    --dc-glass-bg:        rgba(232, 234, 255, 0.70);
+    --dc-glass-nav:       rgba(240, 241, 255, 0.85);
+    --dc-glass-search:    rgba(107, 109, 143, 0.08);
+    --dc-overlay-surface: rgba(13, 15, 45, 0.30);
+    --dc-overlay-modal:   rgba(13, 15, 45, 0.55);
+
+    --dc-close-bg:    rgba(107, 109, 143, 0.12);
+    --dc-close-hover: rgba(107, 109, 143, 0.22);
+
+    --dc-focus-ring:       rgba(69, 71, 206, 0.15);
+    --dc-focus-ring-hover: rgba(69, 71, 206, 0.30);
+    --dc-error-focus-ring: rgba(186, 26, 26, 0.12);
+
+    --dc-error-border:       rgba(186, 26, 26, 0.25);
+    --dc-error-border-hover: rgba(186, 26, 26, 0.50);
+    --dc-error-bg:           rgba(186, 26, 26, 0.08);
+
+    --dc-btn-primary-shadow:         0 4px 20px rgba(50, 52, 176, 0.25);
+    --dc-btn-primary-shadow-hover:   0 6px 28px rgba(50, 52, 176, 0.40);
+    --dc-btn-primary-shadow-press:   0 2px 12px rgba(50, 52, 176, 0.18);
+    --dc-btn-primary-gradient-hover: linear-gradient(135deg, #6a6cf5 0%, #4547ce 100%);
+    --dc-spinner-border:             rgba(0, 0, 0, 0.20);
+
+    --dc-image-overlay-top:    rgba(13, 15, 45, 0.05);
+    --dc-image-overlay-bottom: rgba(13, 15, 45, 0.60);
+
+    --dc-hero-glow-primary:   rgba(69, 71, 206, 0.12);
+    --dc-hero-glow-dim:       rgba(50, 52, 176, 0.08);
+    --dc-hero-glow-secondary: rgba(91, 88, 152, 0.06);
+    --dc-hero-badge-text:     rgba(69, 71, 206, 0.70);
+    --dc-hero-badge-sub:      rgba(69, 71, 206, 0.40);
+  }
+}
+
+/* Explicit light mode override (beats OS preference) */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --dc-surface:                   #f5f7ff;
+  --dc-surface-container-lowest:  #ffffff;
+  --dc-surface-container-low:     #eef0ff;
+  --dc-surface-container:         #e8eaff;
+  --dc-surface-container-high:    #e0e3ff;
+  --dc-surface-container-highest: #d8dbff;
+  --dc-surface-bright:            #ffffff;
+
+  --dc-primary:           #4547ce;
+  --dc-primary-dim:       #3234b0;
+  --dc-primary-fixed:     #eaeaff;
+  --dc-on-primary:        #ffffff;
+  --dc-primary-container: #eaeaff;
+
+  --dc-on-surface:         #0d0f2d;
+  --dc-on-surface-variant: #3f4263;
+
+  --dc-outline:         #6b6d8f;
+  --dc-outline-variant: #c4c5e0;
+
+  --dc-error:              #ba1a1a;
+  --dc-error-container:    #ffdad6;
+  --dc-on-error-container: #410002;
+
+  --dc-secondary:           #5b5898;
+  --dc-secondary-container: #e4e0ff;
+
+  --dc-tertiary: #7c4e69;
+
+  --dc-success:           #006c4c;
+  --dc-success-container: #94f7cb;
+  --dc-warning:           #7c5700;
+  --dc-warning-container: #ffdea1;
+
+  --dc-shadow-sm: 0 4px 24px 0 rgba(50, 52, 176, 0.06);
+  --dc-shadow-md: 0 8px 40px 0 rgba(50, 52, 176, 0.09);
+  --dc-shadow-lg: 0 16px 60px 0 rgba(50, 52, 176, 0.12);
+  --dc-shadow-xl: 0 24px 80px 0 rgba(50, 52, 176, 0.16);
+
+  --dc-hover-tint:         rgba(69, 71, 206, 0.04);
+  --dc-hover-tint-md:      rgba(69, 71, 206, 0.06);
+  --dc-hover-tint-strong:  rgba(69, 71, 206, 0.08);
+  --dc-hover-tint-icon:    rgba(107, 109, 143, 0.10);
+  --dc-hover-tint-icon-md: rgba(107, 109, 143, 0.18);
+  --dc-icon-bg:            rgba(69, 71, 206, 0.10);
+
+  --dc-divider:        rgba(107, 109, 143, 0.12);
+  --dc-border-faint:   rgba(107, 109, 143, 0.20);
+  --dc-border-default: rgba(107, 109, 143, 0.28);
+  --dc-border-medium:  rgba(107, 109, 143, 0.30);
+  --dc-border-strong:  rgba(107, 109, 143, 0.40);
+  --dc-border-hover:   rgba(107, 109, 143, 0.70);
+
+  --dc-glass-bg:        rgba(232, 234, 255, 0.70);
+  --dc-glass-nav:       rgba(240, 241, 255, 0.85);
+  --dc-glass-search:    rgba(107, 109, 143, 0.08);
+  --dc-overlay-surface: rgba(13, 15, 45, 0.30);
+  --dc-overlay-modal:   rgba(13, 15, 45, 0.55);
+
+  --dc-close-bg:    rgba(107, 109, 143, 0.12);
+  --dc-close-hover: rgba(107, 109, 143, 0.22);
+
+  --dc-focus-ring:       rgba(69, 71, 206, 0.15);
+  --dc-focus-ring-hover: rgba(69, 71, 206, 0.30);
+  --dc-error-focus-ring: rgba(186, 26, 26, 0.12);
+
+  --dc-error-border:       rgba(186, 26, 26, 0.25);
+  --dc-error-border-hover: rgba(186, 26, 26, 0.50);
+  --dc-error-bg:           rgba(186, 26, 26, 0.08);
+
+  --dc-btn-primary-shadow:         0 4px 20px rgba(50, 52, 176, 0.25);
+  --dc-btn-primary-shadow-hover:   0 6px 28px rgba(50, 52, 176, 0.40);
+  --dc-btn-primary-shadow-press:   0 2px 12px rgba(50, 52, 176, 0.18);
+  --dc-btn-primary-gradient-hover: linear-gradient(135deg, #6a6cf5 0%, #4547ce 100%);
+  --dc-spinner-border:             rgba(0, 0, 0, 0.20);
+
+  --dc-image-overlay-top:    rgba(13, 15, 45, 0.05);
+  --dc-image-overlay-bottom: rgba(13, 15, 45, 0.60);
+
+  --dc-hero-glow-primary:   rgba(69, 71, 206, 0.12);
+  --dc-hero-glow-dim:       rgba(50, 52, 176, 0.08);
+  --dc-hero-glow-secondary: rgba(91, 88, 152, 0.06);
+  --dc-hero-badge-text:     rgba(69, 71, 206, 0.70);
+  --dc-hero-badge-sub:      rgba(69, 71, 206, 0.40);
+}
+
+/* Explicit dark mode override (beats OS preference) */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE STYLES
+═══════════════════════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
@@ -120,4 +467,5 @@ body {
   font-family: var(--dc-font-body);
   font-size: var(--dc-body-md);
   line-height: 1.6;
+  transition: background-color var(--dc-transition-base), color var(--dc-transition-base);
 }

@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--dc-space-4) var(--dc-space-6);
-  border-bottom: 1px solid rgba(64, 72, 93, 0.2);
+  border-bottom: 1px solid var(--dc-border-faint);
 }
 
 .resource-table__section-label {
@@ -32,8 +32,8 @@
   align-items: center;
   gap: var(--dc-space-2);
   padding: var(--dc-space-1) var(--dc-space-3);
-  background: rgba(64, 72, 93, 0.2);
-  border: 1px solid rgba(64, 72, 93, 0.35);
+  background: var(--dc-close-bg);
+  border: 1px solid var(--dc-border-medium);
   border-radius: var(--dc-round-2);
   color: var(--dc-on-surface-variant);
   font-family: var(--dc-font-body);
@@ -43,7 +43,7 @@
   transition: all var(--dc-transition-fast);
 }
 
-.resource-table__filter-btn:hover { background: rgba(64, 72, 93, 0.35); color: var(--dc-on-surface); }
+.resource-table__filter-btn:hover { background: var(--dc-close-hover); color: var(--dc-on-surface); }
 
 .resource-table__table {
   width: 100%;
@@ -63,10 +63,10 @@
 
 .resource-table__row {
   transition: background var(--dc-transition-fast);
-  border-bottom: 1px solid rgba(64, 72, 93, 0.12);
+  border-bottom: 1px solid var(--dc-divider);
 }
 
-.resource-table__row:hover { background: rgba(163, 166, 255, 0.04); }
+.resource-table__row:hover { background: var(--dc-hover-tint); }
 .resource-table__row:last-child { border-bottom: none; }
 
 .resource-table__td {
@@ -84,7 +84,7 @@
   width: 32px;
   height: 32px;
   border-radius: var(--dc-round-2);
-  background: rgba(163, 166, 255, 0.1);
+  background: var(--dc-icon-bg);
   flex-shrink: 0;
 }
 
@@ -108,7 +108,7 @@
 .score-bar__track {
   flex: 1;
   height: 4px;
-  background: rgba(64, 72, 93, 0.4);
+  background: var(--dc-close-hover);
   border-radius: var(--dc-round-full);
   overflow: hidden;
   min-width: 80px;
@@ -138,4 +138,4 @@
   transition: all var(--dc-transition-fast);
 }
 
-.resource-table__action-btn:hover { background: rgba(64, 72, 93, 0.3); color: var(--dc-on-surface); }
+.resource-table__action-btn:hover { background: var(--dc-hover-tint-icon-md); color: var(--dc-on-surface); }

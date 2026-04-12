@@ -20,7 +20,7 @@
 .input__field-box {
   position: relative;
   border-radius: var(--dc-round-2);
-  border: 1px solid rgba(64, 72, 93, 0.2);
+  border: 1px solid var(--dc-border-faint);
   background: var(--dc-surface-container-lowest);
   transition: border-color var(--dc-transition-base), box-shadow var(--dc-transition-base);
   overflow: hidden;
@@ -28,12 +28,12 @@
 
 .input-wrapper--focused .input__field-box {
   border-color: var(--dc-primary);
-  box-shadow: 0 0 0 3px rgba(163, 166, 255, 0.12);
+  box-shadow: 0 0 0 3px var(--dc-focus-ring);
 }
 
 .input-wrapper--error .input__field-box {
   border-color: var(--dc-error);
-  box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.1);
+  box-shadow: 0 0 0 3px var(--dc-error-focus-ring);
 }
 
 .input-wrapper--disabled {
