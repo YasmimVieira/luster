@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataFlow — SaaS Platform Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --dc-surface: #060e20;
+      --dc-surface-container-lowest: #030914;
+      --dc-surface-container-low: #091328;
+      --dc-surface-container: #0d1a35;
+      --dc-surface-container-high: #141f38;
+      --dc-surface-bright: #1e2e4a;
+      --dc-primary: #a3a6ff;
+      --dc-primary-dim: #6063ee;
+      --dc-on-primary: #0a0040;
+      --dc-on-surface: #dee5ff;
+      --dc-on-surface-variant: #a3aac4;
+      --dc-border-source: #40485d;
+      --dc-error: #ffb4ab;
+      --dc-success: #4cceac;
+      --dc-warning: #ffd166;
+      --dc-secondary: #b6aee4;
+      --dc-font-display: 'Manrope', sans-serif;
+      --dc-font-body: 'Inter', sans-serif;
+      --dc-border-faint: color-mix(in srgb, var(--dc-border-source) 20%, transparent);
+      --dc-border-default: color-mix(in srgb, var(--dc-border-source) 30%, transparent);
+      --dc-hover-tint: color-mix(in srgb, var(--dc-primary) 5%, transparent);
+      --dc-glass-nav: color-mix(in srgb, var(--dc-surface-bright) 65%, transparent);
+    }
+    [data-theme="light"] {
+      color-scheme: light;
+      --dc-surface: #f5f7ff;
+      --dc-surface-container-lowest: #ffffff;
+      --dc-surface-container-low: #eef0ff;
+      --dc-surface-container: #e8eaff;
+      --dc-surface-container-high: #e0e3ff;
+      --dc-surface-bright: #ffffff;
+      --dc-primary: #4547ce;
+      --dc-primary-dim: #3234b0;
+      --dc-on-primary: #ffffff;
+      --dc-on-surface: #0d0f2d;
+      --dc-on-surface-variant: #3f4263;
+      --dc-border-source: #6b6d8f;
+      --dc-secondary: #5b5898;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--dc-surface);
+      color: var(--dc-on-surface);
+      font-family: var(--dc-font-body);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    /* Back bar */
+    .back-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 36px;
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 24px;
+      background: color-mix(in srgb, var(--dc-primary) 12%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--dc-primary) 20%, transparent);
+      font-size: 0.75rem;
+    }
+    .back-bar a {
+      color: var(--dc-primary); text-decoration: none; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar span { color: var(--dc-on-surface-variant); }
+
+    body { padding-top: 36px; }
+    luster-navbar { display: block; }
+
+    /* Layout */
+    .section { padding: 80px 24px; }
+    .section--alt { padding: 80px 24px; background: var(--dc-surface-container-low); }
+    .section--tight { padding: 48px 24px; }
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.6875rem; font-weight: 700;
+      color: var(--dc-primary);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--dc-font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700; color: var(--dc-on-surface);
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      color: var(--dc-on-surface-variant);
+      margin-bottom: 40px; max-width: 520px;
+    }
+
+    /* Stat cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    /* Two-col layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; gap: 32px; } }
+
+    /* Feature list */
+    .feature-list {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .feature-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 16px;
+      background: var(--dc-surface-container-low);
+      border: 1px solid var(--dc-border-faint);
+      border-radius: 12px;
+    }
+    .feature-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: color-mix(in srgb, var(--dc-primary) 12%, transparent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .feature-text h4 {
+      font-family: var(--dc-font-display);
+      font-size: 0.9rem; font-weight: 700;
+      color: var(--dc-on-surface); margin-bottom: 2px;
+    }
+    .feature-text p { font-size: 0.8rem; color: var(--dc-on-surface-variant); }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .pricing-card {
+      padding: 28px;
+      background: var(--dc-surface-container-low);
+      border: 1px solid var(--dc-border-default);
+      border-radius: 16px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .pricing-card--featured {
+      background: color-mix(in srgb, var(--dc-primary) 6%, var(--dc-surface-container-low));
+      border-color: color-mix(in srgb, var(--dc-primary) 30%, transparent);
+    }
+    .pricing-card__name {
+      font-family: var(--dc-font-display);
+      font-size: 0.875rem; font-weight: 700;
+      color: var(--dc-on-surface-variant);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .pricing-card__price {
+      font-family: var(--dc-font-display);
+      font-size: 2.5rem; font-weight: 800;
+      color: var(--dc-on-surface); line-height: 1;
+    }
+    .pricing-card__price span {
+      font-size: 1rem; font-weight: 400;
+      color: var(--dc-on-surface-variant);
+    }
+    .pricing-card__desc { font-size: 0.8rem; color: var(--dc-on-surface-variant); }
+    .pricing-card__features {
+      display: flex; flex-direction: column; gap: 8px;
+      font-size: 0.8rem; color: var(--dc-on-surface-variant);
+      list-style: none;
+    }
+    .pricing-card__features li::before { content: "✓ "; color: var(--dc-success); font-weight: 700; }
+
+    /* Tabs section */
+    .tabs-section { margin-bottom: 40px; }
+    .tab-content {
+      padding: 24px 0;
+      color: var(--dc-on-surface-variant);
+      font-size: 0.875rem;
+      line-height: 1.7;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 100px 24px;
+      text-align: center;
+      background: color-mix(in srgb, var(--dc-primary) 4%, var(--dc-surface));
+      border-top: 1px solid color-mix(in srgb, var(--dc-primary) 15%, transparent);
+    }
+    .cta-section h2 {
+      font-family: var(--dc-font-display);
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800; line-height: 1.15;
+      color: var(--dc-on-surface); margin-bottom: 16px;
+    }
+    .cta-section p { color: var(--dc-on-surface-variant); font-size: 1rem; margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* Footer */
+    .site-footer {
+      padding: 32px 24px;
+      border-top: 1px solid var(--dc-border-faint);
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--dc-on-surface-variant); font-size: 0.75rem;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+    /* Alert spacing */
+    .alert-stack { display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px; }
+
+    /* Theme FAB */
+    .theme-fab {
+      position: fixed; bottom: 24px; right: 24px; z-index: 99;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--dc-surface-bright);
+      border: 1px solid var(--dc-border-default);
+      border-radius: 50%;
+      cursor: pointer; font-size: 1.1rem;
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--dc-primary-dim) 20%, transparent);
+      transition: transform 150ms ease;
+    }
+    .theme-fab:hover { transform: scale(1.08); }
+
+    .divider { border: none; border-top: 1px solid var(--dc-border-faint); }
+
+    @media (max-width: 640px) {
+      .section, .section--alt { padding: 56px 16px; }
+      .cta-section { padding: 64px 16px; }
+      .site-footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Back to docs -->
+<div class="back-bar">
+  <a href="../index.html">← Back to docs</a>
+  <span>Demo — SaaS Platform</span>
+</div>
+
+<!-- Navbar -->
+<luster-navbar logo-title="DataFlow" logo-sub="ANALYTICS" active-link="dashboard"></luster-navbar>
+
+<!-- Hero -->
+<luster-hero
+  heading="Analytics for teams that ship fast"
+  subtitle="Real-time dashboards, smart alerts and deep integrations — everything your team needs to understand what's happening and why."
+  section="PLATFORM"
+  style="display:block"
+></luster-hero>
+
+<!-- Alert banner -->
+<section class="section--tight">
+  <div class="container">
+    <div class="alert-stack">
+      <luster-alert
+        variant="success"
+        heading="DataFlow 3.0 is live"
+        message="Real-time collaboration, redesigned dashboards and 40% faster query performance."
+        dismissible
+      ></luster-alert>
+      <luster-alert
+        variant="info"
+        heading="Scheduled maintenance"
+        message="We'll be performing routine maintenance on Apr 15, 2026 from 02:00–04:00 UTC. No data loss expected."
+        dismissible
+      ></luster-alert>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Stats -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">Platform status</p>
+    <h2 class="section-title">Everything is running</h2>
+    <p class="section-desc">Real-time status of all DataFlow services and integrations.</p>
+
+    <div class="stats-grid">
+      <luster-stat-card
+        heading="Event Pipeline"
+        description="Ingests and processes all incoming events in real time"
+        version="v4.2"
+        status="active"
+        users="24.1k"
+        has-toggle
+        toggle-on
+      ></luster-stat-card>
+
+      <luster-stat-card
+        heading="Query Engine"
+        description="Distributed SQL across your full data warehouse"
+        version="v3.8"
+        status="active"
+        users="18.6k"
+        has-toggle
+        toggle-on
+      ></luster-stat-card>
+
+      <luster-stat-card
+        heading="ML Anomaly Detection"
+        description="Automatically surfaces unusual patterns in your metrics"
+        version="v2.1"
+        status="beta"
+        users="4.3k"
+        has-toggle
+      ></luster-stat-card>
+
+      <luster-stat-card
+        heading="Legacy Export API"
+        description="CSV/JSON export endpoint from v1 — use GraphQL instead"
+        version="v1.0"
+        status="deprecated"
+        users="320"
+      ></luster-stat-card>
+    </div>
+  </div>
+</section>
+
+<!-- Catalog -->
+<section class="section--alt">
+  <div class="container">
+    <p class="section-label">Integrations</p>
+    <h2 class="section-title">Connect your stack</h2>
+    <p class="section-desc">Native integrations with the tools your team already uses.</p>
+
+    <luster-resource-table
+      section-label="Available integrations"
+      rows='[
+        {"name":"Segment","category":"Data ingestion","score":99,"status":"active"},
+        {"name":"dbt Cloud","category":"Transformation","score":97,"status":"active"},
+        {"name":"Snowflake","category":"Warehouse","score":95,"status":"active"},
+        {"name":"Slack","category":"Alerts","score":92,"status":"active"},
+        {"name":"Looker","category":"Visualization","score":88,"status":"active"},
+        {"name":"Fivetran","category":"Data ingestion","score":85,"status":"beta"},
+        {"name":"Redshift","category":"Warehouse","score":79,"status":"beta"}
+      ]'
+      style="display:block"
+    ></luster-resource-table>
+  </div>
+</section>
+
+<!-- Features + Tabs -->
+<section class="section">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <p class="section-label">Why DataFlow</p>
+        <h2 class="section-title">Built for speed, designed for scale</h2>
+        <p class="section-desc" style="margin-bottom:28px">From startup to enterprise, DataFlow adapts to your data volume and team structure.</p>
+
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-text">
+              <h4>Sub-second queries</h4>
+              <p>Columnar storage and intelligent caching make even complex aggregations feel instant.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-text">
+              <h4>SOC 2 Type II certified</h4>
+              <p>Enterprise-grade security with row-level permissions and full audit logs.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🤝</div>
+            <div class="feature-text">
+              <h4>Real-time collaboration</h4>
+              <p>Build and share dashboards together. See who's looking at what, live.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="tabs-section">
+          <luster-tabs
+            tabs='[{"id":"overview","label":"Overview"},{"id":"security","label":"Security"},{"id":"api","label":"API"}]'
+            active="overview"
+          >
+            <div slot="tab-overview" class="tab-content">
+              DataFlow processes over <strong style="color:var(--dc-on-surface)">2 billion events per day</strong> across our global infrastructure.
+              Our distributed query engine automatically parallelizes across your data warehouse to return results in milliseconds,
+              regardless of dataset size.
+            </div>
+            <div slot="tab-security" class="tab-content">
+              All data is encrypted at rest (AES-256) and in transit (TLS 1.3).
+              We support SSO via SAML 2.0, SCIM provisioning, and row-level access controls.
+              Full audit logs are available for export at any time.
+            </div>
+            <div slot="tab-api" class="tab-content">
+              Our GraphQL and REST APIs give you programmatic access to every feature in DataFlow.
+              SDKs are available for Python, Node.js, Go and Ruby.
+              Webhooks fire in real time when metrics cross defined thresholds.
+            </div>
+          </luster-tabs>
+        </div>
+
+        <luster-accordion heading="How does pricing work?" subtitle="Billing">
+          <p style="color:var(--dc-on-surface-variant);font-size:.85rem;line-height:1.7">
+            DataFlow is priced per seat with unlimited data volume. No per-query charges, no surprise bills.
+            Annual plans include a 20% discount and a dedicated customer success manager.
+          </p>
+        </luster-accordion>
+        <luster-accordion heading="Do you support on-premise deployments?" subtitle="Infrastructure">
+          <p style="color:var(--dc-on-surface-variant);font-size:.85rem;line-height:1.7">
+            Yes — DataFlow Enterprise supports fully air-gapped on-premise and private-cloud deployments.
+            Contact our sales team for architecture requirements and SLA options.
+          </p>
+        </luster-accordion>
+        <luster-accordion heading="How long does onboarding take?" subtitle="Getting started" badge="Fast" badge-variant="success">
+          <p style="color:var(--dc-on-surface-variant);font-size:.85rem;line-height:1.7">
+            Most teams are live within a day. Connect your data source, configure your first dashboard
+            and invite your team — our guided setup takes under 30 minutes.
+          </p>
+        </luster-accordion>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="section--alt">
+  <div class="container">
+    <p class="section-label">Pricing</p>
+    <h2 class="section-title">Simple, transparent pricing</h2>
+    <p class="section-desc">Start free, scale as you grow. No hidden fees, no per-query charges.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div>
+          <p class="pricing-card__name">Starter</p>
+          <p class="pricing-card__price">$0 <span>/ month</span></p>
+          <p class="pricing-card__desc">Everything you need to get started.</p>
+        </div>
+        <ul class="pricing-card__features">
+          <li>Up to 3 seats</li>
+          <li>5 dashboards</li>
+          <li>7-day data retention</li>
+          <li>Community support</li>
+        </ul>
+        <luster-button variant="secondary" full-width>Get started free</luster-button>
+      </div>
+
+      <div class="pricing-card pricing-card--featured">
+        <div>
+          <luster-badge variant="primary">Most popular</luster-badge>
+          <p class="pricing-card__name" style="margin-top:12px">Pro</p>
+          <p class="pricing-card__price">$49 <span>/ seat / month</span></p>
+          <p class="pricing-card__desc">For growing teams that need more power.</p>
+        </div>
+        <ul class="pricing-card__features">
+          <li>Unlimited seats</li>
+          <li>Unlimited dashboards</li>
+          <li>90-day data retention</li>
+          <li>Priority support</li>
+          <li>API access</li>
+        </ul>
+        <luster-button variant="primary" full-width>Start free trial</luster-button>
+      </div>
+
+      <div class="pricing-card">
+        <div>
+          <p class="pricing-card__name">Enterprise</p>
+          <p class="pricing-card__price">Custom</p>
+          <p class="pricing-card__desc">For large teams with advanced needs.</p>
+        </div>
+        <ul class="pricing-card__features">
+          <li>Unlimited everything</li>
+          <li>2-year data retention</li>
+          <li>On-premise option</li>
+          <li>SSO & SCIM</li>
+          <li>Dedicated CSM</li>
+          <li>SLA guarantee</li>
+        </ul>
+        <luster-button variant="secondary" full-width>Talk to sales</luster-button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Activity -->
+<section class="section--tight">
+  <div class="container">
+    <p class="section-label">Changelog</p>
+    <h2 class="section-title" style="margin-bottom:24px">Recent updates</h2>
+    <div style="max-width:640px;display:flex;flex-direction:column">
+      <luster-activity-item label="DataFlow 3.0 released" description="Real-time collaboration, faster queries, new UI" time="Apr 12, 2026" variant="activity" icon="publish"></luster-activity-item>
+      <luster-activity-item label="release-notes-3.0.pdf" description="Full changelog and migration guide" time="Apr 12, 2026" variant="file" file-size="1.2 MB" downloadable></luster-activity-item>
+      <luster-activity-item label="ML Anomaly Detection launched" description="Now in public beta — available for Pro plans" time="Apr 1, 2026" variant="activity" icon="publish"></luster-activity-item>
+      <luster-activity-item label="Security patch v2.9.4" description="Resolved 2 low-severity CVEs" time="Mar 28, 2026" variant="activity" icon="edit"></luster-activity-item>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <luster-badge variant="success" dot>14-day free trial — no credit card</luster-badge>
+    <h2 style="margin-top:16px">Start understanding your data today</h2>
+    <p>Join 4,000+ teams already using DataFlow to make faster, better decisions.</p>
+    <div class="cta-buttons">
+      <luster-button variant="primary" size="lg">Start for free</luster-button>
+      <luster-button variant="secondary" size="lg">Schedule a demo</luster-button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <span>© 2026 DataFlow Inc. — Analytics for modern teams</span>
+  <div class="footer-badges">
+    <luster-badge variant="success" dot>All systems operational</luster-badge>
+    <luster-badge variant="default">SOC 2 Type II</luster-badge>
+    <luster-badge variant="beta">Built with Luster UI</luster-badge>
+  </div>
+</footer>
+
+<!-- Floating theme toggle -->
+<button class="theme-fab" id="themeFab" title="Toggle theme">☀</button>
+
+<script type="module" src="../dist/luster.esm.js"></script>
+<script>
+  const html = document.documentElement;
+  const fab  = document.getElementById('themeFab');
+  const saved = localStorage.getItem('luster-theme') || 'dark';
+  html.setAttribute('data-theme', saved);
+  fab.textContent = saved === 'dark' ? '☀' : '☾';
+
+  fab.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    fab.textContent = next === 'dark' ? '☀' : '☾';
+    localStorage.setItem('luster-theme', next);
+  });
+</script>
+</body>
+</html>

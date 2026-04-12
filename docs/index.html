@@ -449,6 +449,7 @@
     <div class="nav-group">
       <span class="nav-group__label">Overview</span>
       <a href="#get-started" class="nav-link">Get Started</a>
+      <a href="#demos"       class="nav-link">Demos</a>
       <a href="#theming"     class="nav-link">Theming</a>
     </div>
     <div class="nav-group">
@@ -493,6 +494,59 @@
 
   <!-- ── MAIN ────────────────────────────────────────────────── -->
   <main class="main-content">
+
+    <!-- DEMOS -->
+    <section id="demos" class="comp-section" style="margin-bottom:var(--dc-space-16)">
+      <p class="section-group-label">Examples</p>
+      <h2 class="comp-title">Landing page demos</h2>
+      <p class="comp-desc">Two complete landing pages built entirely with Luster UI components — no extra libraries.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:var(--dc-space-5)">
+
+        <!-- Demo 1 -->
+        <div style="border:1px solid var(--dc-border-default);border-radius:var(--dc-round-4);overflow:hidden">
+          <div style="height:200px;background:linear-gradient(135deg,var(--dc-surface-container-high) 0%,var(--dc-surface-container) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--dc-space-3);padding:var(--dc-space-6)">
+            <div style="display:flex;gap:var(--dc-space-2)">
+              <luster-badge variant="default">Articles</luster-badge>
+              <luster-badge variant="primary">Editorial</luster-badge>
+              <luster-badge variant="live">Live</luster-badge>
+            </div>
+            <p style="font-family:var(--dc-font-display);font-size:var(--dc-headline-sm);font-weight:700;color:var(--dc-on-surface);text-align:center">The Curator</p>
+            <p style="font-size:var(--dc-body-sm);color:var(--dc-on-surface-variant);text-align:center">Editorial publishing platform with article cards, profiles and activity feed</p>
+          </div>
+          <div style="padding:var(--dc-space-5);background:var(--dc-surface-container-low);border-top:1px solid var(--dc-border-faint)">
+            <p style="font-size:var(--dc-label-sm);color:var(--dc-on-surface-variant);margin-bottom:var(--dc-space-3)">
+              Uses: Navbar · Hero · Article Card · Profile Card · Feature Quote · Activity Item · Badge · Button
+            </p>
+            <a href="demos/editorial.html" target="_blank" style="text-decoration:none">
+              <luster-button variant="primary" size="sm">View demo ↗</luster-button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Demo 2 -->
+        <div style="border:1px solid var(--dc-border-default);border-radius:var(--dc-round-4);overflow:hidden">
+          <div style="height:200px;background:linear-gradient(135deg,var(--dc-surface-container-high) 0%,var(--dc-surface-container) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--dc-space-3);padding:var(--dc-space-6)">
+            <div style="display:flex;gap:var(--dc-space-2)">
+              <luster-badge variant="success">Analytics</luster-badge>
+              <luster-badge variant="primary">SaaS</luster-badge>
+              <luster-badge variant="beta">Demo</luster-badge>
+            </div>
+            <p style="font-family:var(--dc-font-display);font-size:var(--dc-headline-sm);font-weight:700;color:var(--dc-on-surface);text-align:center">DataFlow</p>
+            <p style="font-size:var(--dc-body-sm);color:var(--dc-on-surface-variant);text-align:center">SaaS analytics platform with stat cards, tables, pricing and FAQ accordion</p>
+          </div>
+          <div style="padding:var(--dc-space-5);background:var(--dc-surface-container-low);border-top:1px solid var(--dc-border-faint)">
+            <p style="font-size:var(--dc-label-sm);color:var(--dc-on-surface-variant);margin-bottom:var(--dc-space-3)">
+              Uses: Navbar · Hero · Stat Card · Resource Table · Tabs · Accordion · Alert · Activity Item · Button
+            </p>
+            <a href="demos/saas.html" target="_blank" style="text-decoration:none">
+              <luster-button variant="primary" size="sm">View demo ↗</luster-button>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <!-- GET STARTED -->
     <section id="get-started" class="comp-section">
